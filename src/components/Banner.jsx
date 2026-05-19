@@ -5,31 +5,30 @@ import { FiArrowDownRight } from "react-icons/fi";
 
 const Banner = () => {
   
-//   const catCards = [
-//     {
-//       name: "Vincent",
-//       breed: "British Shorthair",
-//       src: "/assets/cats/vincent.jpg",
-//     },
-//     { name: "Groosha", breed: "Snowshoe cat", src: "/assets/cats/groosha.jpg" },
-//     { name: "Max", breed: "British Shorthair", src: "/assets/cats/max.jpg" },
-//     {
-//       name: "Vilhelmina",
-//       breed: "Abyssinian",
-//       src: "/assets/cats/vilhelmina.jpg",
-//     },
-//     {
-//       name: "Atilla",
-//       breed: "British Longhair",
-//       src: "/assets/cats/atilla.jpg",
-//     },
-//   ];
+  const catCards = [
+    {
+      name: "Vincent",
+      breed: "British Shorthair",
+      src: "/assets/cats/vincent.jpg",
+    },
+    { name: "Groosha", breed: "Snowshoe cat", src: "/assets/cats/groosha.jpg" },
+    { name: "Max", breed: "British Shorthair", src: "/assets/cats/max.jpg" },
+    {
+      name: "Vilhelmina",
+      breed: "Abyssinian",
+      src: "/assets/cats/vilhelmina.jpg",
+    },
+    {
+      name: "Atilla",
+      breed: "British Longhair",
+      src: "/assets/cats/atilla.jpg",
+    },
+  ];
 
   return (
     <div className="w-full min-h-screen flex flex-col relative overflow-hidden bg-slate-900">
       <Navbar />
 
-      
       <div className="absolute inset-0 w-full h-full">
         <Image
           src="/assets/petora_banner.jpg"
@@ -43,9 +42,7 @@ const Banner = () => {
         <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/20 to-black/50" />
       </div>
 
-      
       <div className="relative z-10 flex-1 container mx-auto w-full px-6 md:px-12 flex flex-col justify-center pt-24 pb-12">
-
         <div className="max-w-2xl space-y-6 text-white mb-16 md:mb-24">
           <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-none">
             Find your new
@@ -53,10 +50,9 @@ const Banner = () => {
             best friend
           </h1>
           <p className="text-base md:text-lg text-white/80 max-w-xl font-normal leading-relaxed">
-            Explore our catalogue of pets available for adoption. Find
-            the ideal companion that matches your preferences and lifestyle.
+            Explore our catalogue of pets available for adoption. Find the ideal
+            companion that matches your preferences and lifestyle.
           </p>
-
 
           <div className="flex items-center w-full max-w-lg bg-[#4b475a]/40 backdrop-blur-md p-1.5 rounded-full border border-white/10 shadow-lg mt-4">
             <input
@@ -75,18 +71,14 @@ const Banner = () => {
           </div>
         </div>
 
-
-        {/* <div className="w-full">
+        <div className="w-full">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 items-stretch">
-
             {catCards.map((cat, index) => (
               <div
                 key={index}
                 className="group bg-white/75 backdrop-blur-md rounded-2xl p-2.5 flex flex-col justify-between border border-white/40 shadow-sm hover:translate-y-[-4px] transition-all duration-300 cursor-pointer"
               >
-
                 <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-3 bg-slate-100">
-
                   <div className="absolute inset-0 bg-slate-300 animate-pulse z-0" />
                   <Image
                     src={cat.src}
@@ -96,7 +88,6 @@ const Banner = () => {
                     className="object-cover relative z-10"
                   />
                 </div>
-
 
                 <div className="flex items-end justify-between px-1 pb-1">
                   <div>
@@ -114,10 +105,7 @@ const Banner = () => {
               </div>
             ))}
 
-
-            <div
-              className="bg-linear-to-br from-[#346bf1] to-[#4fa0ff] rounded-2xl p-5 flex flex-col justify-between shadow-md hover:-translate-y-1 transition-all duration-300 cursor-pointer text-slate-900"
-            >
+            <div className="bg-[#C47C5D] hover:bg-[#b56e4f] text-[#F7F4EF] rounded-2xl p-5 flex flex-col justify-between shadow-md hover:-translate-y-1 transition-all duration-300 cursor-pointer ">
               <h3 className="font-extrabold text-xl leading-tight tracking-tight pt-2">
                 View
                 <br />
@@ -130,9 +118,7 @@ const Banner = () => {
               </div>
             </div>
           </div>
-        </div> */}
-
-        
+        </div>
       </div>
     </div>
   );

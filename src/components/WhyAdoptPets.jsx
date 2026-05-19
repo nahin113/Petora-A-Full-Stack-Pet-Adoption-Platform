@@ -86,3 +86,7 @@ const WhyAdoptPets = () => {
 };
 
 export default WhyAdoptPets;
+
+
+
+
