@@ -1,3 +1,4 @@
+import AdoptionProcess from "@/components/AdoptionProcess";
 import Banner from "@/components/Banner";
 import Footer from "@/components/Footer";
 import PetCareTips from "@/components/PetCareTips";
@@ -12,6 +13,7 @@ export default function Home() {
       <WhyAdoptPets></WhyAdoptPets>
       <SuccessStories></SuccessStories>
       <PetCareTips></PetCareTips>
+      <AdoptionProcess></AdoptionProcess>
       <Footer></Footer>
     </div>
   );
