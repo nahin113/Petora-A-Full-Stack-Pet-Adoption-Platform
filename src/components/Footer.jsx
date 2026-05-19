@@ -23,7 +23,7 @@ export default function Footer() {
     <footer className="w-full text-slate-300 font-sans">
 
       <div className="bg-[#323142] px-6 py-10 md:py-12 lg:px-16">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="max-w-xl text-center lg:text-left">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
               Be the first to know
@@ -55,7 +55,7 @@ export default function Footer() {
 
 
       <div className="bg-[#21202e] pt-16 pb-12 px-6 lg:px-16 border-b border-slate-800">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 lg:gap-6">
+        <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 lg:gap-6">
 
           <div className="flex flex-col gap-5">
             <div className="flex items-center text-white font-bold text-3xl">
@@ -263,7 +263,7 @@ export default function Footer() {
 
 
       <div className="bg-[#1a1924] py-6 px-6 lg:px-16 text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-center md:text-left space-y-1">
             <p>© 2026 PeTora. ALL rights reserved.</p>
             <div className="flex flex-wrap justify-center md:justify-start gap-2 divider-links">
