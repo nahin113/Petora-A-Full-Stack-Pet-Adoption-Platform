@@ -21,7 +21,7 @@ import {
 export default function Footer() {
   return (
     <footer className="w-full text-slate-300 font-sans">
-      {/* 1. Top Newsletter Banner */}
+
       <div className="bg-[#323142] px-6 py-10 md:py-12 lg:px-16">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="max-w-xl text-center lg:text-left">
@@ -53,13 +53,13 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* 2. Main Footer Links & Content */}
+
       <div className="bg-[#21202e] pt-16 pb-12 px-6 lg:px-16 border-b border-slate-800">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 lg:gap-6">
-          {/* Column 1: Brand & Trustpilot */}
+
           <div className="flex flex-col gap-5">
             <div className="flex items-center text-white font-bold text-3xl">
-              {/* Replace with an actual SVG icon if available */}
+
               <Image
                 src={"/assets/petora_logo.png"}
                 alt="petora logo"
@@ -69,7 +69,6 @@ export default function Footer() {
               <span>PeTora</span>
             </div>
 
-            {/* Trustpilot Widget Mock */}
             <div className="mt-2">
               <div className="flex items-center gap-1 text-[#00b67a] font-bold text-sm">
                 <span>Trustpilot</span>
@@ -94,7 +93,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Adopt the kitty */}
+          
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm tracking-wide">
               Adopt pets
@@ -128,7 +127,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Company */}
+
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm tracking-wide">
               Company
@@ -157,7 +156,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Info */}
+
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm tracking-wide">
               Info
@@ -201,7 +200,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 5: Contact & Socials */}
+
           <div className="flex flex-col gap-5">
             <ul className="space-y-3 text-xs text-slate-400">
               <li className="flex items-center gap-3">
@@ -225,7 +224,7 @@ export default function Footer() {
               </li>
             </ul>
 
-            {/* Social Icons Row */}
+
             <div className="flex items-center gap-2 mt-2">
               <Link
                 href="#"
@@ -262,7 +261,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* 3. Bottom Sub-Footer (Copyright & Payments) */}
+
       <div className="bg-[#1a1924] py-6 px-6 lg:px-16 text-xs text-slate-500">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-center md:text-left space-y-1">
@@ -298,7 +297,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Payment Gateways Icons */}
+
           <div className="flex items-center">
             <Image
               src={"/assets/bkash.png"}
