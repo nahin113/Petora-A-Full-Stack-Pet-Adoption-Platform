@@ -9,7 +9,7 @@ const ImageCard = ({ img }) => {
           src={img.src}
           alt={img.alt || "Adopted pet"}
           fill
-          priority // CRITICAL: Forces Next.js to render marquee assets immediately without delay flashes
+          priority 
           sizes="(max-width: 640px) 260px, 320px"
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />

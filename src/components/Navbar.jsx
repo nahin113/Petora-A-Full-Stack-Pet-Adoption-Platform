@@ -1,5 +1,7 @@
 import { Link, Button, Avatar } from "@heroui/react";
 import Image from "next/image";
+import NavLink from "./NavLink";
+import { ThemeSwitch } from "./ThemeSwitch";
 const Navbar = () => {
   return (
     <div className="bg-transparent">
@@ -19,19 +21,22 @@ const Navbar = () => {
           </div>
           <ul className="flex items-center gap-4">
             <li>
-              <Link className="no-underline text-white" href="/">
+              <NavLink className="no-underline text-white" href="/">
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link className="no-underline text-white" href="#">
+              <NavLink className="no-underline text-white" href="/allpets">
                 All Pets
-              </Link>
+              </NavLink>
             </li>
           </ul>
           <ul className="flex items-center gap-4">
             <li>
-              <Link className="no-underline text-white">Log In</Link>
+              <NavLink href="/login" className="no-underline text-white">Log In</NavLink>
+            </li>
+            <li>
+              <ThemeSwitch></ThemeSwitch>
             </li>
           </ul>
         </header>

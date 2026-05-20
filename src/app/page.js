@@ -2,6 +2,7 @@ import AdoptionProcess from "@/components/AdoptionProcess";
 import Banner from "@/components/Banner";
 import Footer from "@/components/Footer";
 import HappyClients from "@/components/HappyClients";
+import Navbar from "@/components/Navbar";
 import PetCareTips from "@/components/PetCareTips";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import SuccessStories from "@/components/SuccessStories";
@@ -23,7 +24,7 @@ export default function Home() {
       <ScrollReveal direction="up" delay={0.2}>
         <AdoptionProcess></AdoptionProcess>
       </ScrollReveal>
-        <HappyClients></HappyClients>
+      <HappyClients></HappyClients>
       <Footer></Footer>
     </div>
   );

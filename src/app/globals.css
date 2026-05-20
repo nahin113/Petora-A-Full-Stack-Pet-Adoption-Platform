@@ -1,2 +1,15 @@
 @import "tailwindcss";
 @import "@heroui/styles"; 
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+@layer base {
+  body {
+  
+    @apply bg-[#F7F4EF] text-[#1E1611];
+  }
+
+  .dark body {
+    @apply bg-[#1E1611] text-[#F7F4EF];
+  }
+}

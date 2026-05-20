@@ -70,14 +70,17 @@ const row2Images = [
 
 const HappyClients = () => {
   return (
-    <div className="w-full bg-[#F7F4EF] py-16 md:py-24 overflow-hidden flex flex-col gap-10">
+    <div className="w-full bg-[#F7F4EF] dark:bg-[#1E1611] py-16 md:py-24 overflow-hidden flex flex-col gap-10 transition-colors duration-300">
+  
       <div className="text-center px-6">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-[#1E1611] tracking-tight">
+        <h2 className="text-4xl md:text-5xl font-black text-[#1E1611] dark:text-[#F7F4EF] tracking-tight transition-colors duration-300">
           Our happy clients
         </h2>
       </div>
 
+  
       <div className="w-full flex flex-col gap-6 overflow-hidden">
+     
         <div className="flex w-full overflow-hidden">
           <motion.div
             className="flex flex-row shrink-0"
@@ -85,6 +88,7 @@ const HappyClients = () => {
             transition={{ ease: "linear", duration: 40, repeat: Infinity }}
           >
             {[...row1Images, ...row1Images].map((img, index) => (
+
               <ImageCard key={`r1-${index}`} img={img} />
             ))}
           </motion.div>

@@ -96,31 +96,33 @@ const SuccessStories = () => {
   ];
 
   return (
-    <section className="w-full bg-[#F7F4EF] py-16 md:py-24 px-6 overflow-hidden">
+    <section className="w-full bg-[#F7F4EF] dark:bg-[#1E1611] py-16 md:py-24 px-6 overflow-hidden transition-colors duration-300">
       <div className="container mx-auto space-y-12">
-        
+      
         <div className="text-center">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-[#1E1611] tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-black text-[#1E1611] dark:text-[#F7F4EF] tracking-tight transition-colors duration-300">
             Success Stories
           </h2>
         </div>
 
-    
+     
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 auto-rows-fr">
           {gridBlocks.map((block) => {
+     
             if (block.type === "text") {
               return (
                 <div
                   key={block.id}
-                  className={`bg-white rounded-[2rem] p-6 md:p-7 flex flex-col justify-between border border-[#1E1611]/5 shadow-xs ${block.colSpan}`}
+                  className={`bg-white dark:bg-[#2A211C] rounded-[2rem] p-6 md:p-7 flex flex-col justify-between border border-[#1E1611]/5 dark:border-white/5 shadow-xs transition-all duration-300 ${block.colSpan}`}
                 >
                   <div className="space-y-4">
-              
+               
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-full bg-[#1E1611]/10 flex items-center justify-center font-bold text-xs text-[#1E1611]">
+          
+                      <div className="w-9 h-9 rounded-full bg-[#1E1611]/10 dark:bg-white/10 flex items-center justify-center font-bold text-xs text-[#1E1611] dark:text-[#F7F4EF] transition-colors duration-300">
                         {block.author.charAt(0)}
                       </div>
-                      <h4 className="font-extrabold text-[#1E1611] text-sm tracking-tight">
+                      <h4 className="font-extrabold text-[#1E1611] dark:text-[#F7F4EF] text-sm tracking-tight transition-colors duration-300">
                         {block.author}
                       </h4>
                     </div>
@@ -134,8 +136,8 @@ const SuccessStories = () => {
                       ))}
                     </div>
 
-             
-                    <p className="text-xs md:text-sm text-[#7A726A] leading-relaxed font-medium">
+           
+                    <p className="text-xs md:text-sm text-[#7A726A] dark:text-[#A1978F] leading-relaxed font-medium transition-colors duration-300">
                       {block.text}
                     </p>
                   </div>
@@ -146,7 +148,7 @@ const SuccessStories = () => {
             return (
               <div
                 key={block.id}
-                className={`relative min-h-[180px] md:min-h-[200px] rounded-[2rem] overflow-hidden bg-[#1E1611]/5 shadow-xs ${block.colSpan}`}
+                className={`relative min-h-[180px] md:min-h-[200px] rounded-[2rem] overflow-hidden bg-[#1E1611]/5 dark:bg-white/5 border border-transparent dark:border-white/5 shadow-xs transition-all duration-300 ${block.colSpan}`}
               >
                 <video
                   src={block.videoUrl}
@@ -160,10 +162,10 @@ const SuccessStories = () => {
             );
           })}
 
-
+   
           <div className="bg-[#C47C5D] hover:bg-[#b56e4f] text-[#F7F4EF] rounded-[2rem] p-7 flex flex-col justify-between shadow-sm transition-all duration-300 cursor-pointer min-h-[200px] lg:col-span-3 group">
             <div className="space-y-2">
-              <h3 className="font-extrabold text-2xl leading-none tracking-tight">
+              <h3 className="font-black text-2xl uppercase tracking-wider leading-none">
                 All
                 <br />
                 Reviews
