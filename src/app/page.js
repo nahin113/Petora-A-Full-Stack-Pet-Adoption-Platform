@@ -3,19 +3,27 @@ import Banner from "@/components/Banner";
 import Footer from "@/components/Footer";
 import HappyClients from "@/components/HappyClients";
 import PetCareTips from "@/components/PetCareTips";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import SuccessStories from "@/components/SuccessStories";
 import WhyAdoptPets from "@/components/WhyAdoptPets";
-import Image from "next/image";
 
 export default function Home() {
   return (
     <div>
       <Banner></Banner>
-      <WhyAdoptPets></WhyAdoptPets>
-      <SuccessStories></SuccessStories>
-      <PetCareTips></PetCareTips>
-      <AdoptionProcess></AdoptionProcess>
-      <HappyClients></HappyClients>
+      <ScrollReveal direction="up" delay={0.2}>
+        <WhyAdoptPets></WhyAdoptPets>
+      </ScrollReveal>
+      <ScrollReveal direction="up" delay={0.2}>
+        <SuccessStories></SuccessStories>
+      </ScrollReveal>
+      <ScrollReveal direction="up" delay={0.2}>
+        <PetCareTips></PetCareTips>
+      </ScrollReveal>
+      <ScrollReveal direction="up" delay={0.2}>
+        <AdoptionProcess></AdoptionProcess>
+      </ScrollReveal>
+        <HappyClients></HappyClients>
       <Footer></Footer>
     </div>
   );

@@ -34,7 +34,7 @@ const WhyAdoptPets = () => {
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
   
         <div className="lg:col-span-5 space-y-8 flex flex-col justify-center h-full">
-          <div className="space-y-3">
+          <div className="space-y-5">
             <h2 className="text-4xl md:text-5xl font-extrabold text-[#1E1611] tracking-tight leading-none">
               Why should we <span className="text-[#C47C5D]">adopt</span> pets?
             </h2>
