@@ -49,7 +49,7 @@ const WhyAdoptPets = () => {
             {reasons.map((reason, index) => (
               <div
                 key={index}
-                className="flex gap-4 items-start bg-white/60 dark:bg-[#2A211C]/60 backdrop-blur-md p-4 rounded-2xl border border-white/80 dark:border-white/5 shadow-sm transition-all duration-300"
+                className="flex gap-4 items-start bg-white/60 dark:bg-[#2A211C]/60 p-4 rounded-2xl border border-white/80 dark:border-white/5 shadow-sm transition-all duration-300"
               >
             
                 <div className="p-2.5 bg-[#F7F4EF] dark:bg-[#1E1611] text-[#C47C5D] rounded-xl shrink-0 shadow-xs transition-colors duration-300">

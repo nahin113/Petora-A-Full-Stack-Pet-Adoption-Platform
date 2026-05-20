@@ -61,7 +61,7 @@ const PetCareTips = () => {
               return (
                 <div
                   key={index}
-                  className="bg-white/60 dark:bg-[#2A211C]/40 rounded-2xl border border-[#1E1611]/5 dark:border-white/5 overflow-hidden transition-all duration-300 backdrop-blur-xs"
+                  className="bg-white/60 dark:bg-[#2A211C]/40 rounded-2xl border border-[#1E1611]/5 dark:border-white/5 overflow-hidden transition-all duration-300"
                 >
          
                   <button
@@ -118,7 +118,7 @@ const PetCareTips = () => {
               <div className="absolute inset-0 bg-[#1E1611]/5 dark:bg-black/20 mix-blend-multiply transition-colors duration-300" />
 
           
-              <div className="absolute top-5 left-5 flex items-center gap-1.5 p-2 px-4 rounded-full bg-white/80 dark:bg-[#1E1611]/80 backdrop-blur-md border border-white/40 dark:border-white/5 shadow-xs transition-colors duration-300">
+              <div className="absolute top-5 left-5 flex items-center gap-1.5 p-2 px-4 rounded-full bg-white/80 dark:bg-[#1E1611]/80 border border-white/40 dark:border-white/5 shadow-xs transition-colors duration-300">
                 <FiStar size={12} className="text-[#D9A05B]" />
                 <span className="text-[10px] font-black text-[#1E1611] dark:text-[#F7F4EF] tracking-wider uppercase">
                   Petora Verified

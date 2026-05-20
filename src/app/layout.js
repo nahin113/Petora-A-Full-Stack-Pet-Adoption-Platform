@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
         <NextThemeProvider>
           <SmoothScrollProvider>
             <Toaster></Toaster>
-            <Navbar/>
+            <Navbar />
             {children}
           </SmoothScrollProvider>
         </NextThemeProvider>

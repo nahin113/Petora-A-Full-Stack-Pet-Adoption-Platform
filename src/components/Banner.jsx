@@ -9,19 +9,27 @@ const Banner = () => {
     {
       name: "Vincent",
       breed: "British Shorthair",
-      src: "/assets/cats/vincent.jpg",
+      src: "/assets/petora_banner.jpg",
     },
-    { name: "Groosha", breed: "Snowshoe cat", src: "/assets/cats/groosha.jpg" },
-    { name: "Max", breed: "British Shorthair", src: "/assets/cats/max.jpg" },
+    {
+      name: "Groosha",
+      breed: "Snowshoe cat",
+      src: "/assets/petora_banner.jpg",
+    },
+    {
+      name: "Max",
+      breed: "British Shorthair",
+      src: "/assets/petora_banner.jpg",
+    },
     {
       name: "Vilhelmina",
       breed: "Abyssinian",
-      src: "/assets/cats/vilhelmina.jpg",
+      src: "/assets/petora_banner.jpg",
     },
     {
       name: "Atilla",
       breed: "British Longhair",
-      src: "/assets/cats/atilla.jpg",
+      src: "/assets/petora_banner.jpg",
     },
   ];
 
@@ -57,7 +65,7 @@ const Banner = () => {
             </p>
 
           
-            <div className="flex items-center w-full max-w-lg bg-[#1E1611]/30 dark:bg-[#F7F4EF]/10 backdrop-blur-md p-1.5 rounded-full border border-white/20 shadow-lg mt-4 transition-all duration-300">
+            <div className="flex items-center w-full max-w-lg bg-[#1E1611]/30 dark:bg-[#F7F4EF]/10 p-1.5 rounded-full border border-white/20 shadow-lg mt-4 transition-all duration-300">
               <input
                 type="text"
                 placeholder="Which breed are you looking for?"
@@ -78,7 +86,7 @@ const Banner = () => {
               {catCards.map((cat, index) => (
                 <div
                   key={index}
-                  className="group bg-white/80 dark:bg-[#2A211C]/90 backdrop-blur-md rounded-2xl p-2.5 flex flex-col justify-between border border-white/40 dark:border-white/5 shadow-sm hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                  className="group bg-white/80 dark:bg-[#2A211C]/90 rounded-2xl p-2.5 flex flex-col justify-between border border-white/40 dark:border-white/5 shadow-sm hover:-translate-y-1 transition-all duration-300 cursor-pointer"
                 >
    
                   <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-3 bg-[#1E1611]/5 dark:bg-white/5">

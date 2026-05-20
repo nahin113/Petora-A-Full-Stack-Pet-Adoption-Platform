@@ -1,10 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Mail, Lock, ArrowRight } from "lucide-react";
+import { Mail, Lock, ArrowRight, Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import {
   Card,
   Form,
@@ -14,55 +13,57 @@ import {
   FieldError,
   Button,
 } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+  const [passwordValue, setPasswordValue] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
   const router = useRouter();
+
+  const toggleVisibility = () => setIsVisible(!isVisible);
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const email = formData.get("email");
-    const password = formData.get("password");
+    const user = Object.fromEntries(formData.entries());
+    const { data, error } = await authClient.signIn.email({
+      email: user.email,
+      password: user.password,
+    });
 
-    try {
-      if (email === "hello@petora.com" && password === "password123") {
-        toast.success("Welcome back to Petora!", {
-          style: {
-            background: "#1E1611",
-            color: "#F7F4EF",
-            borderRadius: "9999px",
-          },
-        });
+    console.log(data);
 
-        setTimeout(() => {
-          router.push("/");
-        }, 1200);
-      } else {
-        throw new Error("Invalid email or security password mapping.");
-      }
-    } catch (error) {
-      toast.error(error.message || "Authentication checkpoint failed.", {
+    if (data) {
+      toast.success("Logged In successfully!", {
         style: {
           background: "#1E1611",
           color: "#F7F4EF",
-          borderRadius: "1rem",
+          borderRadius: "9999px",
+        },
+      });
+      router.push("/");
+    }
+
+    if (error) {
+      toast.error(error.message || "Login failed!", {
+        style: {
+          background: "#1E1611",
+          color: "#F7F4EF",
+          borderRadius: "9999px",
         },
       });
     }
   };
 
   const handleGoogleSignin = async () => {
-    try {
-      toast.success("Connecting with Google Secure Network...", { icon: "⚡" });
-    } catch (error) {
-      toast.error("Social login authorization canceled.");
-    }
+    await authClient.signIn.social({
+      provider: "google",
+    });
   };
 
   return (
-  
-    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-12 px-4 sm:px-6 lg:px-8 selection:bg-[#C47C5D]/20">
-
+    <div className="relative min-h-screen w-full flex items-center justify-center pt-28 pb-12 px-4 sm:px-6 lg:px-8 selection:bg-[#C47C5D]/20 bg-[#F7F4EF] dark:bg-[#1E1611] transition-colors duration-300">
       <video
         autoPlay
         muted
@@ -73,30 +74,20 @@ export default function LoginForm() {
         <source src="/assets/bg.mp4" type="video/mp4" />
       </video>
 
-   
-      <div
-        className="absolute inset-0 z-10 bg-linear-to-tr from-[#1E1611]/30 via-[#F7F4EF]/20 to-transparent backdrop-blur-[2px]"
-        aria-hidden="true"
-      />
-
+      <div className="absolute inset-0 bg-black/40 z-10"></div>
 
       <div className="relative z-20 w-full max-w-[450px] flex flex-col items-center">
-  
-        <Card className="w-full p-8 md:p-10 bg-white/40 backdrop-blur-xl rounded-[2.5rem] border border-white/40 shadow-2xl">
- 
+        <Card className="w-full max-w-[440px] p-8 bg-white/70 dark:bg-[#1E1611]/80 backdrop-blur-md border border-white/40 dark:border-white/5 shadow-xl rounded-2xl transition-colors duration-300">
           <div className="text-center mb-8 space-y-2">
-            <h1 className="text-4xl font-black text-black tracking-tight leading-none">
+            <h1 className="text-4xl font-black text-[#1E1611] dark:text-[#F7F4EF] tracking-tight leading-none transition-colors duration-300">
               Welcome Back
             </h1>
-            <p className="text-sm text-black/80 font-bold tracking-tight">
+            <p className="text-sm text-[#1E1611]/70 dark:text-[#F7F4EF]/70 font-semibold tracking-tight transition-colors duration-300">
               Continue your companion search directory journey
             </p>
           </div>
 
           <Form className="flex flex-col gap-6 w-full" onSubmit={onSubmit}>
-            <Toaster position="top-center" reverseOrder={false} />
-
-    
             <TextField
               isRequired
               name="email"
@@ -109,91 +100,87 @@ export default function LoginForm() {
                 return null;
               }}
             >
-              <Label className="font-black text-black text-xs uppercase tracking-wider pl-1">
+              <Label className="font-black text-[#1E1611] dark:text-[#F7F4EF]/90 text-xs uppercase tracking-wider pl-1 transition-colors duration-300">
                 Email Address
               </Label>
               <div className="relative flex items-center group">
                 <Mail
                   size={18}
-                  className="text-black/70 absolute left-4 group-focus-within:text-[#C47C5D] transition-colors duration-300"
+                  className="text-[#1E1611]/50 dark:text-[#F7F4EF]/50 absolute left-4 group-focus-within:text-[#C47C5D] transition-colors duration-300"
                 />
                 <Input
                   placeholder="name@example.com"
-                  className="rounded-full bg-white/80 placeholder-black/40 border border-[#1E1611]/15 text-black h-12 w-full pl-12 pr-4 text-sm font-semibold outline-none focus:border-[#C47C5D] focus:bg-white focus:ring-4 focus:ring-[#C47C5D]/10 transition-all duration-300 shadow-xs"
+                  className="rounded-full bg-[#1E1611]/5 dark:bg-[#F7F4EF]/5 placeholder-[#1E1611]/40 dark:placeholder-[#F7F4EF]/30 border border-[#1E1611]/15 dark:border-white/10 text-[#1E1611] dark:text-[#F7F4EF] h-12 w-full pl-12 pr-4 text-sm font-semibold outline-none focus:border-[#C47C5D] dark:focus:border-[#C47C5D] focus:bg-white dark:focus:bg-[#1E1611] focus:ring-4 focus:ring-[#C47C5D]/10 transition-all duration-300 shadow-xs"
                 />
               </div>
-              <FieldError className="text-red-700 text-xs font-black mt-1 pl-2" />
+              <FieldError className="text-red-600 dark:text-red-400 text-xs font-black mt-1 pl-2" />
             </TextField>
 
-      
             <TextField
               isRequired
-              minLength={8}
               name="password"
-              type="password"
-              className="w-full flex flex-col gap-2"
+              type={isVisible ? "text" : "password"}
+              className="w-full flex flex-col gap-1.5"
             >
-              <div className="flex justify-between items-center pl-1">
-                <Label className="font-black text-black text-xs uppercase tracking-wider">
-                  Password
-                </Label>
-                <Link
-                  href="/forgot"
-                  className="text-xs font-black text-[#1E1611] hover:text-[#C47C5D] underline decoration-[#C47C5D]/30 transition-colors"
-                >
-                  Forgot?
-                </Link>
-              </div>
+              <Label className="font-black text-[#1E1611] dark:text-[#F7F4EF]/90 text-xs uppercase tracking-wider pl-1 transition-colors duration-300">
+                Password
+              </Label>
               <div className="relative flex items-center group">
                 <Lock
                   size={18}
-                  className="text-black/70 absolute left-4 group-focus-within:text-[#C47C5D] transition-colors duration-300"
+                  className="text-[#1E1611]/50 dark:text-[#F7F4EF]/50 absolute left-4 group-focus-within:text-[#C47C5D] transition-colors duration-300"
                 />
                 <Input
-                  type="password"
+                  type={isVisible ? "text" : "password"}
                   placeholder="••••••••"
-                  className="rounded-full bg-white/80 placeholder-black/40 border border-[#1E1611]/15 text-black h-12 w-full pl-12 pr-4 text-sm font-semibold outline-none focus:border-[#C47C5D] focus:bg-white focus:ring-4 focus:ring-[#C47C5D]/10 transition-all duration-300 shadow-xs"
+                  value={passwordValue}
+                  onChange={(e) => setPasswordValue(e.target.value)}
+                  className="rounded-full bg-[#1E1611]/5 dark:bg-[#F7F4EF]/5 border border-[#1E1611]/15 dark:border-white/10 text-[#1E1611] dark:text-[#F7F4EF] h-12 w-full pl-12 pr-12 text-sm font-semibold outline-none focus:border-[#C47C5D] dark:focus:border-[#C47C5D] focus:bg-white dark:focus:bg-[#1E1611] focus:ring-4 focus:ring-[#C47C5D]/10 transition-all duration-300 shadow-xs"
                 />
+                <button
+                  className="absolute right-4 focus:outline-none text-[#1E1611]/50 dark:text-[#F7F4EF]/50 hover:text-[#C47C5D] transition-colors cursor-pointer"
+                  type="button"
+                  onClick={toggleVisibility}
+                  aria-label="toggle password visibility"
+                >
+                  {isVisible ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
-              <FieldError className="text-red-700 text-xs font-black mt-1 pl-2" />
             </TextField>
 
-    
             <Button
               type="submit"
-              className="w-full rounded-full bg-[#C47C5D] text-[#F7F4EF] font-black text-sm h-12 mt-2 hover:bg-[#A86446] border-none flex items-center justify-center gap-2 transition-all duration-300 transform active:scale-98 tracking-tight group shadow-md cursor-pointer"
+              className="w-full rounded-full bg-[#C47C5D] text-[#F7F4EF] font-black uppercase text-xs tracking-wider h-12 mt-2 hover:bg-[#A86446] border-none flex items-center justify-center gap-2 transition-all duration-300 transform active:scale-98 group shadow-md cursor-pointer"
             >
               <span>Login Account</span>
               <ArrowRight
-                size={16}
+                size={14}
                 className="transition-transform duration-300 group-hover:translate-x-1"
               />
             </Button>
 
- 
             <div className="relative flex items-center py-1 w-full">
-              <div className="grow border-t border-[#1E1611]/15"></div>
-              <span className="shrink-0 mx-4 text-black/70 text-xs font-black uppercase tracking-widest">
+              <div className="grow border-t border-[#1E1611]/15 dark:border-white/10"></div>
+              <span className="shrink-0 mx-4 text-[#1E1611]/60 dark:text-[#F7F4EF]/60 text-xs font-black uppercase tracking-widest transition-colors duration-300">
                 Or connect via
               </span>
-              <div className="grow border-t border-[#1E1611]/15"></div>
+              <div className="grow border-t border-[#1E1611]/15 dark:border-white/10"></div>
             </div>
 
             <Button
               onClick={handleGoogleSignin}
               type="button"
-              className="w-full rounded-full border border-[#1E1611]/15 text-[#1E1611] bg-white/90 hover:bg-white h-12 font-black text-sm flex items-center justify-center gap-3 transition-all duration-300 transform active:scale-98 cursor-pointer shadow-xs"
+              className="w-full rounded-full border border-[#1E1611]/20 dark:border-white/10 text-[#1E1611] dark:text-[#F7F4EF] bg-transparent hover:bg-[#1E1611]/5 dark:hover:bg-[#F7F4EF]/5 h-12 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-3 transition-all duration-300 transform active:scale-98 cursor-pointer shadow-xs"
             >
               <FcGoogle size={20} />
               <span>Sign in with Google</span>
             </Button>
 
-        
             <div className="text-center mt-2">
-              <p className="text-sm text-black/80 font-bold">
+              <p className="text-sm text-[#1E1611]/70 dark:text-[#F7F4EF]/70 font-semibold transition-colors duration-300">
                 New to the platform?{" "}
                 <Link
-                  href="/register"
+                  href="/signup"
                   className="text-[#C47C5D] font-black hover:text-[#A86446] pl-1 underline decoration-[#C47C5D]/30 transition-colors"
                 >
                   Create an account

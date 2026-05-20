@@ -6,12 +6,10 @@ export const ScrollReveal = ({ children, delay = 0, direction = "up" }) => {
   const [skip, setSkip] = useState(false);
 
   useEffect(() => {
-  
     if (window.__skipAnimations) {
       setSkip(true);
     }
   }, []);
-
 
   if (skip) {
     return <div className="w-full h-full text-inherit">{children}</div>;

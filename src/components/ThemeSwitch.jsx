@@ -12,7 +12,7 @@ export function ThemeSwitch() {
         <>
       
           <Switch.Control
-            className={`h-[31px] w-[51px] rounded-full border border-white/20 backdrop-blur-md transition-all duration-300 flex items-center ${
+            className={`h-[31px] w-[51px] rounded-full border border-white/20 transition-all duration-300 flex items-center ${
               isSelected
                 ? "bg-[#F7F4EF]/90 shadow-[0_0_12px_rgba(247,244,239,0.3)]" 
                 : "bg-[#1E1611]/80 shadow-inner" 
