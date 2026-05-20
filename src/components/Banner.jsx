@@ -60,13 +60,9 @@ const Banner = () => {
               placeholder="Which breed are you looking for?"
               className="bg-transparent pl-5 pr-2 py-3 text-white placeholder-white/60 focus:outline-none w-full text-sm"
             />
-            <button
-              className="bg-linear-to-br from-[#346bf1] to-[#4fa0ff] 
-            hover:from-[#1e52cc] hover:to-[#2b82eb] 
-            text-white font-semibold text-sm px-5 py-3 rounded-xl flex items-center gap-2 transition duration-200 shrink-0"
-            >
+            <button className="bg-[#C47C5D] hover:bg-[#A86446] text-[#F7F4EF] font-extrabold text-sm px-7 py-3.5 rounded-full flex items-center gap-2 transition-all duration-300 transform active:scale-98 shrink-0 tracking-tight shadow-xs group">
               <span>Adopt Now</span>
-              <FaPaw className="text-xs" />
+              <FaPaw className="text-xs transition-transform duration-300 group-hover:rotate-12" />
             </button>
           </div>
         </div>
@@ -76,7 +72,7 @@ const Banner = () => {
             {catCards.map((cat, index) => (
               <div
                 key={index}
-                className="group bg-white/75 backdrop-blur-md rounded-2xl p-2.5 flex flex-col justify-between border border-white/40 shadow-sm hover:translate-y-[-4px] transition-all duration-300 cursor-pointer"
+                className="group bg-white/75 backdrop-blur-md rounded-2xl p-2.5 flex flex-col justify-between border border-white/40 shadow-sm hover:-translate-y-1 transition-all duration-300 cursor-pointer"
               >
                 <div className="relative w-full aspect-square rounded-xl overflow-hidden mb-3 bg-slate-100">
                   <div className="absolute inset-0 bg-slate-300 animate-pulse z-0" />

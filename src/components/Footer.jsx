@@ -21,7 +21,6 @@ import {
 export default function Footer() {
   return (
     <footer className="w-full text-slate-300 font-sans">
-
       <div className="bg-[#323142] px-6 py-10 md:py-12 lg:px-16">
         <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="max-w-xl text-center lg:text-left">
@@ -41,11 +40,7 @@ export default function Footer() {
                 placeholder="Your email"
                 className="bg-transparent pl-4 pr-2 py-2 text-white placeholder-slate-400 focus:outline-none w-full text-sm"
               />
-              <button
-                className="bg-linear-to-br from-[#346bf1] to-[#4fa0ff] 
-            hover:from-[#1e52cc] hover:to-[#2b82eb] 
-            text-white font-semibold text-sm px-5 py-3 rounded-xl flex items-center gap-2 transition duration-200 shrink-0"
-              >
+              <button className="px-8 py-3.5 bg-[#C47C5D] hover:bg-[#A86446] text-[#F7F4EF] text-sm font-semibold rounded-full shadow-xs transition-all duration-300 transform active:scale-98 tracking-tight flex items-center gap-2 ">
                 Subscribe <FaPaperPlane className="text-xs" />
               </button>
             </div>
@@ -53,13 +48,10 @@ export default function Footer() {
         </div>
       </div>
 
-
       <div className="bg-[#21202e] pt-16 pb-12 px-6 lg:px-16 border-b border-slate-800">
         <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 lg:gap-6">
-
           <div className="flex flex-col gap-5">
             <div className="flex items-center text-white font-bold text-3xl">
-
               <Image
                 src={"/assets/petora_logo.png"}
                 alt="petora logo"
@@ -93,7 +85,6 @@ export default function Footer() {
             </div>
           </div>
 
-          
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm tracking-wide">
               Adopt pets
@@ -127,7 +118,6 @@ export default function Footer() {
             </ul>
           </div>
 
-
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm tracking-wide">
               Company
@@ -155,7 +145,6 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
 
           <div>
             <h4 className="text-white font-semibold mb-4 text-sm tracking-wide">
@@ -200,7 +189,6 @@ export default function Footer() {
             </ul>
           </div>
 
-
           <div className="flex flex-col gap-5">
             <ul className="space-y-3 text-xs text-slate-400">
               <li className="flex items-center gap-3">
@@ -223,7 +211,6 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-
 
             <div className="flex items-center gap-2 mt-2">
               <Link
@@ -261,7 +248,6 @@ export default function Footer() {
         </div>
       </div>
 
-
       <div className="bg-[#1a1924] py-6 px-6 lg:px-16 text-xs text-slate-500">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-center md:text-left space-y-1">
@@ -296,7 +282,6 @@ export default function Footer() {
               </Link>
             </div>
           </div>
-
 
           <div className="flex items-center">
             <Image

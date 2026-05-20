@@ -47,7 +47,7 @@ const AdoptionProcess = () => {
 
   return (
     <section className="w-full bg-[#F7F4EF] py-16 md:py-24 px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto space-y-12">
+      <div className="container mx-auto space-y-12">
         <div className="text-center">
           <h2 className="text-4xl md:text-5xl font-extrabold text-[#1E1611] tracking-tight">
             Adoption process
