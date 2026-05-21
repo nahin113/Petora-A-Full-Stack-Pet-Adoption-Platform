@@ -39,7 +39,7 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink className="no-underline text-white" href="/allpets">
+              <NavLink className="no-underline text-white" href="/all-pets">
                 All Pets
               </NavLink>
             </li>

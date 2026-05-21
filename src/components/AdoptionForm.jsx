@@ -11,7 +11,7 @@ import {
   Lock,
   ShieldCheck,
 } from "lucide-react";
-import { Button, TextField, Label, InputGroup } from "@heroui/react";
+import { Button, TextField, Label, InputGroup, Form } from "@heroui/react";
 import { submitAdoptionRequest } from "@/lib/actions";
 import { toast } from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
@@ -30,42 +30,51 @@ export default function AdoptionForm({ petId, petName, ownerEmail }) {
 
   const isOwnListing = currentUser && currentUser.email === ownerEmail;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (isOwnListing) {
-      toast.error("You cannot adopt your own listed companion.");
-      return;
-    }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const form = e.currentTarget;
 
-    setIsSubmitting(true);
-    const formData = new FormData(e.currentTarget);
-    const formFields = Object.fromEntries(formData.entries());
+  if (isOwnListing) {
+    toast.error("You cannot adopt your own listed companion.");
+    return;
+  }
 
-    const requestPayload = {
-      ...formFields,
-      petId,
-      petName,
-      requesterName: currentUser?.name,
-      requesterEmail: currentUser?.email,
-      status: "pending",
-      createdAt: new Date().toISOString(),
-    };
+  setIsSubmitting(true);
+  const formData = new FormData(form);
+  const formFields = Object.fromEntries(formData.entries());
 
-    try {
-      const res = await submitAdoptionRequest(requestPayload);
-      if (res && res.acknowledged) {
-        toast.success(`Application for ${petName} submitted successfully!`);
-        e.currentTarget.reset();
-      } else {
-        toast.error("Failed to submit request. Please try again.");
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("An error occurred during submission.");
-    } finally {
-      setIsSubmitting(false);
-    }
+  const requestPayload = {
+    ...formFields,
+    petId,
+    petName,
+    requesterName: currentUser?.name || "Guest",
+    requesterEmail: currentUser?.email || "",
+    status: "pending",
+    createdAt: new Date().toISOString(),
   };
+
+  try {
+    const res = await submitAdoptionRequest(requestPayload);
+
+
+    if (res && res.acknowledged) {
+      toast.success(`Application for ${petName} submitted successfully!`);
+      form.reset();
+    }
+
+    else if (res && res.isDuplicate) {
+      toast.error(res.message);
+    }
+    else {
+      toast.error("Failed to submit request. Please try again.");
+    }
+  } catch (err) {
+    console.error(err);
+    toast.error("An error occurred during submission.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   if (!currentUser) {
     return (

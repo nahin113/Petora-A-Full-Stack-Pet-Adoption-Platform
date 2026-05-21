@@ -92,3 +92,17 @@ export const submitAdoptionRequest = async (requestData) => {
     return { acknowledged: false };
   }
 };
+
+
+export const getMyAdoptionRequests = async (email) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}myRequests?email=${encodeURIComponent(email)}`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching adoption requests:", error);
+    return [];
+  }
+};
