@@ -3,6 +3,7 @@ import "@/app/globals.css";
 import { Toaster } from "react-hot-toast";
 import SmoothScrollProvider from "@/app/ui/SmoothScrollProvider";
 import NextThemeProvider from "@/providers/NextThemeProvider";
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         <NextThemeProvider>
           <SmoothScrollProvider>
             <Toaster position="top-center" />
+            <Navbar />
             {children}
           </SmoothScrollProvider>
         </NextThemeProvider>

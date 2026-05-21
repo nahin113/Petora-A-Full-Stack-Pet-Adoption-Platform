@@ -61,3 +61,34 @@ export const deletePetListing = async (id) => {
     return { acknowledged: false };
   }
 };
+
+
+
+export const getSinglePetData = async (id) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}petsData/${id}`, {
+      cache: "no-store", 
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching single pet details:", error);
+    return null;
+  }
+};
+
+export const submitAdoptionRequest = async (requestData) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoptionRequests`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    });
+    return await res.json();
+  } catch (error) {
+    console.error("Error submitting adoption request:", error);
+    return { acknowledged: false };
+  }
+};
