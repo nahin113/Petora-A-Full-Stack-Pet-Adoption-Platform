@@ -14,54 +14,40 @@ import {
   ListBox,
   TextArea,
 } from "@heroui/react";
+import { addPetData } from "@/lib/actions";
+import { toast } from "react-hot-toast";
 
 export default function AddPetPage() {
   const router = useRouter();
   const [isPending, setIsPending] = useState(false);
-  const [notification, setNotification] = useState({ type: "", message: "" });
 
-  const handlePetSubmit = async (e) => {
-    e.preventDefault();
-    setIsPending(true);
-    setNotification({ type: "", message: "" });
+const handlePetSubmit = async (e) => {
+  e.preventDefault();
+  setIsPending(true);
 
-    const formData = new FormData(e.currentTarget);
-    const petData = Object.fromEntries(formData.entries());
+  const formData = new FormData(e.currentTarget);
+  const petData = Object.fromEntries(formData.entries());
 
-    try {
-      const res = await fetch(`${process.env.BETTER_AUTH_URL}/pets`, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(petData),
-      });
+  try {
+    const data = await addPetData(petData);
 
-      if (!res.ok) {
-        throw new Error(
-          "Failed to publish your pet listing. Please check your data."
-        );
-      }
+    console.log("Response from server action:", data);
 
-      const data = await res.json();
-      console.log(data);
-
-      setNotification({
-        type: "success",
-        message: "Pet listed successfully! Redirecting to My Listings...",
-      });
+    if (data && data.acknowledged) {
+      toast.success("Pet listed successfully!");
 
       setTimeout(() => {
-        router.push("/my-listings");
+        router.push("/dashboard/my-listings");
       }, 2000);
-    } catch (err) {
-      setNotification({
-        type: "error",
-        message: err.message || "An unexpected error occurred.",
-      });
-      setIsPending(false);
+    } else {
+      throw new Error("Database did not acknowledge the insertion.");
     }
-  };
+  } catch (err) {
+    console.error("Submission error details:", err);
+    toast.error("An unexpected error occurred.");
+    setIsPending(false);
+  }
+};
 
   return (
     <div className="min-h-screen w-full bg-[#F7F4EF] dark:bg-[#1E1611] text-[#1E1611] dark:text-[#F7F4EF] pt-28 pb-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
@@ -82,18 +68,6 @@ export default function AddPetPage() {
             the MongoDB repository.
           </p>
         </div>
-
-        {notification.message && (
-          <div
-            className={`p-4 rounded-2xl border text-xs font-black uppercase tracking-wider transition-all duration-300 ${
-              notification.type === "success"
-                ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400"
-                : "bg-rose-500/10 border-rose-500/20 text-rose-600 dark:text-rose-400"
-            }`}
-          >
-            {notification.message}
-          </div>
-        )}
 
         <Card className="w-full p-6 sm:p-10 bg-white dark:bg-[#1E1611]/40 backdrop-blur-md border border-[#1E1611]/10 dark:border-white/5 rounded-[2rem] shadow-sm transition-all duration-300 overflow-visible">
           <form onSubmit={handlePetSubmit} className="space-y-6">
@@ -328,9 +302,9 @@ export default function AddPetPage() {
               {/* Adoption Fee */}
               <TextField name="adoptionFee" type="number" isRequired>
                 <Label className="text-[11px] font-black uppercase tracking-wider text-[#1E1611]/60 dark:text-[#F7F4EF]/60 pl-1 mb-1.5 block">
-                  Adoption Fee (USD)
+                  Adoption Fee (Tk)
                 </Label>
-                <Input type="number" placeholder="50" className="rounded-2xl" />
+                <Input type="number" placeholder="500" className="rounded-2xl" />
                 <FieldError />
               </TextField>
             </div>
@@ -357,8 +331,8 @@ export default function AddPetPage() {
                 </Label>
                 <Input
                   type="email"
-                  readOnly
-                  value="user@example.com"
+                  // readOnly
+                  // value="user@example.com"
                   className="rounded-2xl cursor-not-allowed bg-[#1E1611]/10 dark:bg-[#F7F4EF]/10"
                 />
               </TextField>

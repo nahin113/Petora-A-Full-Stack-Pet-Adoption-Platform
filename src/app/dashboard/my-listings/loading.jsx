@@ -8,7 +8,7 @@ export default function Loading() {
       <div className="flex flex-col items-center gap-6 p-8 rounded-[2.5rem] bg-white/40 dark:bg-[#1E1611]/40 backdrop-blur-md border border-[#1E1611]/5 dark:border-white/5 shadow-sm">
         <Spinner
           size="lg"
-          classNames={{
+          className={{
             wrapper: "w-14 h-14",
             circle1: "border-b-[#C47C5D]",
             circle2: "border-b-[#C47C5D]",
