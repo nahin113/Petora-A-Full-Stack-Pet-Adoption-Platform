@@ -15,8 +15,15 @@ import {
 } from "lucide-react";
 import { Button, Card } from "@heroui/react";
 
-const PetDetailsPage = async ({ params }) => {
+
+const PetDetailsPage = async ({ params, searchParams }) => {
+
   const { id } = await params;
+  const resolvedSearchParams = await searchParams;
+
+
+  const autoFocusForm = resolvedSearchParams?.adopt === "true";
+
   const pet = await getSinglePetData(id);
 
   if (!pet) {
@@ -28,19 +35,17 @@ const PetDetailsPage = async ({ params }) => {
   return (
     <div className="min-h-screen w-full bg-[#F7F4EF] dark:bg-[#1E1611] text-[#1E1611] dark:text-[#F7F4EF] pt-28 pb-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
       <div className="max-w-6xl mx-auto space-y-6">
-
+      
         <Link
-          href="/dashboard/listings"
+          href="/all-pets"
           className="inline-flex items-center gap-1 text-xs font-bold text-[#C47C5D] hover:underline"
         >
-          <ChevronLeft size={14} /> Back to listings
+          <ChevronLeft size={14} /> Back to available pets
         </Link>
 
-   
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-
+     
           <div className="lg:col-span-2 space-y-6">
-      
             <div className="relative w-full aspect-[16/10] bg-white dark:bg-[#1E1611]/40 rounded-[2rem] border border-[#1E1611]/10 dark:border-white/5 overflow-hidden shadow-sm">
               <Image
                 src={
@@ -61,7 +66,6 @@ const PetDetailsPage = async ({ params }) => {
                 {pet.status || "Available"}
               </div>
             </div>
-
 
             <div className="space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-4">
@@ -85,7 +89,6 @@ const PetDetailsPage = async ({ params }) => {
                   </div>
                 </div>
 
-
                 <div className="text-right">
                   <p className="text-[10px] font-black uppercase tracking-wider text-[#1E1611]/40 dark:text-[#F7F4EF]/40">
                     Adoption Fee
@@ -98,7 +101,6 @@ const PetDetailsPage = async ({ params }) => {
                 </div>
               </div>
             </div>
-
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Card className="p-4 bg-white dark:bg-[#1E1611]/40 border border-[#1E1611]/10 dark:border-white/5 rounded-2xl flex flex-row items-center gap-3 shadow-none">
@@ -184,7 +186,6 @@ const PetDetailsPage = async ({ params }) => {
               </Card>
             </div>
 
-  
             <div className="space-y-2 pt-2">
               <h3 className="text-lg font-black tracking-tight">
                 About {pet.name}
@@ -196,12 +197,14 @@ const PetDetailsPage = async ({ params }) => {
             </div>
           </div>
 
- 
+       
           <div className="lg:col-span-1">
             <AdoptionForm
               petId={id}
               petName={pet.name}
-              ownerEmail={pet.ownerEmail} 
+              ownerEmail={pet.ownerEmail}
+     
+              autoFocus={autoFocusForm}
             />
           </div>
         </div>

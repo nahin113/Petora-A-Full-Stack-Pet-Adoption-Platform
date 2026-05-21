@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Heart,
@@ -16,7 +16,24 @@ import { submitAdoptionRequest } from "@/lib/actions";
 import { toast } from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 
-export default function AdoptionForm({ petId, petName, ownerEmail }) {
+export default function AdoptionForm({
+  petId,
+  petName,
+  ownerEmail,
+  autoFocus,
+}) {
+  const formRef = useRef(null);
+  useEffect(() => {
+    if (autoFocus && formRef.current) {
+      // Small timeout ensures the DOM has fully painted before scrolling
+      setTimeout(() => {
+        formRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 300);
+    }
+  }, [autoFocus]);
   const { data: session } = authClient.useSession();
   const user = session?.user;
   const router = useRouter();
@@ -27,54 +44,49 @@ export default function AdoptionForm({ petId, petName, ownerEmail }) {
     ? { name: user?.name, email: user?.email }
     : null;
 
+  const isOwnListing = currentUser && currentUser?.email === ownerEmail;
 
-  const isOwnListing = currentUser && currentUser.email === ownerEmail;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  const form = e.currentTarget;
+    if (isOwnListing) {
+      toast.error("You cannot adopt your own listed companion.");
+      return;
+    }
 
-  if (isOwnListing) {
-    toast.error("You cannot adopt your own listed companion.");
-    return;
-  }
+    setIsSubmitting(true);
+    const formData = new FormData(form);
+    const formFields = Object.fromEntries(formData.entries());
 
-  setIsSubmitting(true);
-  const formData = new FormData(form);
-  const formFields = Object.fromEntries(formData.entries());
+    const requestPayload = {
+      ...formFields,
+      petId,
+      petName,
+      requesterName: currentUser?.name || "Guest",
+      requesterEmail: currentUser?.email || "",
+      status: "pending",
+      createdAt: new Date().toISOString(),
+    };
 
-  const requestPayload = {
-    ...formFields,
-    petId,
-    petName,
-    requesterName: currentUser?.name || "Guest",
-    requesterEmail: currentUser?.email || "",
-    status: "pending",
-    createdAt: new Date().toISOString(),
+    try {
+      const res = await submitAdoptionRequest(requestPayload);
+
+      if (res && res.acknowledged) {
+        toast.success(`Application for ${petName} submitted successfully!`);
+        form.reset();
+      } else if (res && res.isDuplicate) {
+        toast.error(res.message);
+      } else {
+        toast.error("Failed to submit request. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("An error occurred during submission.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
-
-  try {
-    const res = await submitAdoptionRequest(requestPayload);
-
-
-    if (res && res.acknowledged) {
-      toast.success(`Application for ${petName} submitted successfully!`);
-      form.reset();
-    }
-
-    else if (res && res.isDuplicate) {
-      toast.error(res.message);
-    }
-    else {
-      toast.error("Failed to submit request. Please try again.");
-    }
-  } catch (err) {
-    console.error(err);
-    toast.error("An error occurred during submission.");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
 
   if (!currentUser) {
     return (
@@ -124,9 +136,11 @@ const handleSubmit = async (e) => {
     );
   }
 
-  
   return (
-    <div className="bg-white dark:bg-[#1E1611]/40 border border-[#1E1611]/10 dark:border-white/5 rounded-[2rem] p-6 lg:p-8 space-y-6 shadow-sm sticky top-28">
+    <div
+      ref={formRef}
+      className="bg-white dark:bg-[#1E1611]/40 border border-[#1E1611]/10 dark:border-white/5 rounded-[2rem] p-6 lg:p-8 space-y-6 shadow-sm sticky top-28"
+    >
       <div className="space-y-1">
         <h2 className="text-xl font-black tracking-tight flex items-center gap-2">
           <Heart size={18} className="text-[#C47C5D] fill-[#C47C5D]/10" />

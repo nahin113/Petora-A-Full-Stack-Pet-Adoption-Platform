@@ -62,13 +62,14 @@ export const deletePetListing = async (id) => {
   }
 };
 
-
-
 export const getSinglePetData = async (id) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}petsData/${id}`, {
-      cache: "no-store", 
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}petsData/${id}`,
+      {
+        cache: "no-store",
+      }
+    );
     if (!res.ok) return null;
     return await res.json();
   } catch (error) {
@@ -79,13 +80,16 @@ export const getSinglePetData = async (id) => {
 
 export const submitAdoptionRequest = async (requestData) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}adoptionRequests`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(requestData),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}adoptionRequests`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      }
+    );
     return await res.json();
   } catch (error) {
     console.error("Error submitting adoption request:", error);
@@ -93,16 +97,45 @@ export const submitAdoptionRequest = async (requestData) => {
   }
 };
 
-
 export const getMyAdoptionRequests = async (email) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}myRequests?email=${encodeURIComponent(email)}`, {
-      cache: "no-store",
-    });
+    const res = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_SERVER_URL
+      }myRequests?email=${encodeURIComponent(email)}`,
+      {
+        cache: "no-store",
+      }
+    );
     if (!res.ok) return [];
     return await res.json();
   } catch (error) {
     console.error("Error fetching adoption requests:", error);
+    return [];
+  }
+};
+
+export const getAllPets = async (
+  search = "",
+  species = "all",
+  sort = "default"
+) => {
+  try {
+    const url = new URL(`${process.env.NEXT_PUBLIC_SERVER_URL}petsData`);
+    if (search) url.searchParams.append("search", search);
+    if (species) url.searchParams.append("species", species);
+    if (sort) url.searchParams.append("sort", sort);
+
+    const res = await fetch(url.toString(), { cache: "no-store" });
+    if (!res.ok) return [];
+    const data = await res.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(
+      "Network communication exception error within getAllPets:",
+      error
+    );
     return [];
   }
 };
