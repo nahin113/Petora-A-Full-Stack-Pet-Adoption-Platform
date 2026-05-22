@@ -69,8 +69,8 @@ const handlePetSubmit = async (e) => {
             List a Pet for <span className="text-[#C47C5D]">Adoption</span>
           </h1>
           <p className="text-sm text-[#1E1611]/60 dark:text-[#F7F4EF]/60 font-semibold">
-            Fill out the configuration parameters below to submit your pet to
-            the MongoDB repository.
+            Fill out the details below to list your pet and help them find their
+            perfect forever home.
           </p>
         </div>
 
@@ -162,10 +162,7 @@ const handlePetSubmit = async (e) => {
                 <Label className="text-[11px] font-black uppercase tracking-wider text-[#1E1611]/60 dark:text-[#F7F4EF]/60 pl-1 mb-1.5 block">
                   Breed
                 </Label>
-                <Input
-                  placeholder="Siberian Husky"
-                  className="rounded-2xl"
-                />
+                <Input placeholder="Siberian Husky" className="rounded-2xl" />
                 <FieldError />
               </TextField>
 
@@ -174,10 +171,7 @@ const handlePetSubmit = async (e) => {
                 <Label className="text-[11px] font-black uppercase tracking-wider text-[#1E1611]/60 dark:text-[#F7F4EF]/60 pl-1 mb-1.5 block">
                   Age
                 </Label>
-                <Input
-                  placeholder="2 years old"
-                  className="rounded-2xl"
-                />
+                <Input placeholder="2 years old" className="rounded-2xl" />
                 <FieldError />
               </TextField>
 
@@ -309,7 +303,11 @@ const handlePetSubmit = async (e) => {
                 <Label className="text-[11px] font-black uppercase tracking-wider text-[#1E1611]/60 dark:text-[#F7F4EF]/60 pl-1 mb-1.5 block">
                   Adoption Fee (Tk)
                 </Label>
-                <Input type="number" placeholder="500" className="rounded-2xl" />
+                <Input
+                  type="number"
+                  placeholder="500"
+                  className="rounded-2xl"
+                />
                 <FieldError />
               </TextField>
             </div>

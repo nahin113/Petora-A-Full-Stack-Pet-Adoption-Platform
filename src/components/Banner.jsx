@@ -1,15 +1,13 @@
 import Image from "next/image";
-import Navbar from "./Navbar";
 import { FaPaw } from "react-icons/fa6";
 import { FiArrowDownRight } from "react-icons/fi";
 import { ScrollReveal } from "./ScrollReveal";
 import Link from "next/link";
 import { getPetData } from "@/lib/actions";
 
+
 const Banner = async () => {
   const petCards = await getPetData()
-  console.log(petCards)
-
   return (
     <div className="w-full min-h-screen flex flex-col relative overflow-hidden bg-[#F7F4EF] dark:bg-[#1E1611] transition-colors duration-300">
       <div className="absolute inset-0 w-full h-full">

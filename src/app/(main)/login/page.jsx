@@ -43,6 +43,7 @@ export default function LoginForm() {
         },
       });
       router.push("/");
+      toast.success("Logged In Successfully")
     }
 
     if (error) {

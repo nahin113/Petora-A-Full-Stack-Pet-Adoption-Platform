@@ -79,7 +79,7 @@ export default function AllPetsPage() {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C47C5D]/10 dark:bg-[#C47C5D]/20 border border-[#C47C5D]/20">
             <span className="w-1.5 h-1.5 rounded-full bg-[#C47C5D] animate-pulse"></span>
             <span className="text-[10px] font-black uppercase tracking-widest text-[#C47C5D]">
-              All Available Companions
+              All Available Pets
             </span>
           </div>
           <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-none">
@@ -87,8 +87,8 @@ export default function AllPetsPage() {
           </h1>
           <p className="text-sm text-[#1E1611]/60 dark:text-[#F7F4EF]/60 font-semibold">
             {isLoading
-              ? "Loading companions..."
-              : `${filteredPets.length} companions found matching criteria`}
+              ? "Loading Pets..."
+              : `${filteredPets.length} furry friends found matching criteria`}
           </p>
         </div>
 

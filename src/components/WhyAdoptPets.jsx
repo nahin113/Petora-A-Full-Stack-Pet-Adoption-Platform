@@ -41,7 +41,7 @@ const WhyAdoptPets = () => {
               </h2>
               <p className="text-base text-[#7A726A] dark:text-[#A1978F] max-w-xl transition-colors duration-300">
                 Bringing a shelter pet into your home changes more than just
-                their world—it reshapes yours. Here is how adoption creates a
+                their world, it reshapes yours. Here is how adoption creates a
                 lasting impact:
               </p>
             </div>
