@@ -1,16 +1,20 @@
 "use client";
-
-import Navbar from "@/components/Navbar";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
-import { FiFileText, FiPlus, FiHeart, FiLogOut } from "react-icons/fi";
+import {
+  FiFileText,
+  FiPlus,
+  FiHeart,
+  FiLogOut,
+  FiMenu,
+  FiX,
+} from "react-icons/fi";
 
 export default function DashboardLayout({ children }) {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Updated layout mapping classes to adapt between light and dark backgrounds smoothly
   const getLinkClass = (path) => {
     const baseClass =
       "flex items-center gap-3 px-4 py-3 text-xs font-black uppercase tracking-wider rounded-xl transition-all w-full";
@@ -22,22 +26,27 @@ export default function DashboardLayout({ children }) {
 
   return (
     <div className="bg-[#F7F4EF] dark:bg-[#1E1611] text-[#1E1611] dark:text-[#F7F4EF] min-h-screen flex flex-col font-sans transition-colors duration-300">
-      {/* Global Application Navigation Bar */}
-      <Navbar />
+      <div className="md:hidden mt-[65px] flex items-center justify-between px-6 py-3 bg-[#F7F4EF] dark:bg-[#1E1611] border-b border-[#1E1611]/10 dark:border-white/5 transition-colors duration-300">
+        <span className="text-[10px] font-black uppercase tracking-widest text-[#1E1611]/50 dark:text-[#F7F4EF]/50">
+          Dashboard Menu
+        </span>
+        <button
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className="p-2 rounded-xl bg-[#1E1611]/5 dark:bg-white/5 hover:bg-[#1E1611]/10 text-[#C47C5D] transition-all cursor-pointer"
+        >
+          {isSidebarOpen ? <FiX size={18} /> : <FiMenu size={18} />}
+        </button>
+      </div>
 
-      <div className="flex flex-1 relative">
-        {/* Theme-Adaptive Sidebar Component */}
+
+      <div className="flex flex-col md:flex-row flex-1 w-full">
+
         <aside
           className={`
-            fixed md:sticky top-[65px] left-0 z-30
-            w-65 h-[calc(100vh-65px)] bg-white dark:bg-[#1E1611]/40 backdrop-blur-md
-            flex flex-col justify-between border-r border-[#1E1611]/10 dark:border-white/5 px-4 py-6
-            transition-transform duration-300 ease-in-out
-            ${
-              isSidebarOpen
-                ? "translate-x-0"
-                : "-translate-x-full md:translate-x-0"
-            }
+            bg-white dark:bg-[#1E1611]/40 backdrop-blur-md
+            flex flex-col justify-between border-b md:border-b-0 md:border-r border-[#1E1611]/10 dark:border-white/5 px-4 py-6
+            transition-all duration-300 ease-in-out w-full md:w-64
+            ${isSidebarOpen ? "block" : "hidden md:flex"}
           `}
         >
           <div className="flex flex-col gap-6 w-full">
@@ -74,24 +83,7 @@ export default function DashboardLayout({ children }) {
             </nav>
           </div>
 
-          {/* Action Footer Wrapper Block */}
-          <div className="pt-4 border-t border-[#1E1611]/10 dark:border-white/5 w-full">
-            <button className="flex items-center gap-3 px-4 py-3 text-[#C47C5D] hover:bg-[#C47C5D]/10 dark:hover:bg-[#C47C5D]/20 font-black uppercase tracking-wider rounded-xl w-full transition-all text-xs cursor-pointer">
-              <FiLogOut size={16} />
-              <span>Logout Account</span>
-            </button>
-          </div>
         </aside>
-
-        {/* Mobile View Sidebar Blur Backdrop Overlay */}
-        {isSidebarOpen && (
-          <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-xs z-20 md:hidden top-[65px]"
-            onClick={() => setIsSidebarOpen(false)}
-          />
-        )}
-
-        {/* Page Content Yield Injection Viewport */}
         <main className="flex-1 p-6 md:p-10 max-w-7xl mx-auto w-full overflow-x-hidden">
           {children}
         </main>

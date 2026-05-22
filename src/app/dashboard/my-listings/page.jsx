@@ -36,7 +36,7 @@ const MyListingsPage = async () => {
 
   return (
     <div className="min-h-screen w-full bg-[#F7F4EF] dark:bg-[#1E1611] text-[#1E1611] dark:text-[#F7F4EF] pt-28 pb-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
-      <div className="max-w-6xl mx-auto space-y-8">
+      <div className="container mx-auto space-y-8">
     
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-[#1E1611]/10 dark:border-white/5 pb-6">
           <div className="space-y-1">

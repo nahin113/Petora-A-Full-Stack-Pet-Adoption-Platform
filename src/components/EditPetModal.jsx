@@ -15,9 +15,30 @@ import {
 import { Trash2, Save, Pencil } from "lucide-react";
 import { updatePetData } from "@/lib/actions";
 import { toast } from "react-hot-toast";
+import { useEffect, useState } from "react";
+import { authClient } from "@/lib/auth-client";
 
 export default function EditPetModal({ pet }) {
   const router = useRouter();
+
+ const [token, setToken] = useState(null);
+
+ useEffect(() => {
+   const fetchToken = async () => {
+     try {
+       const { data: tokenData } = await authClient.token();
+       if (tokenData) {
+         const {token : targetToken} = tokenData;
+         setToken(targetToken);
+       }
+     } catch (err) {
+       console.error("Error retrieving authentication token:", err);
+     }
+   };
+   fetchToken();
+ }, []);
+
+ console.log(token)
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -30,7 +51,7 @@ export default function EditPetModal({ pet }) {
     const petId = pet?._id;
 
     try {
-      const result = await updatePetData(petId, updatedPetData);
+      const result = await updatePetData(petId, updatedPetData,token);
       if (result.acknowledged || result.modifiedCount > 0) {
         router.refresh();
         toast.success("Pet Details Updated")

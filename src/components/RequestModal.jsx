@@ -27,7 +27,7 @@ export default function RequestsModal({ petId, petName }) {
   const fetchRequests = async () => {
     setIsLoading(true);
     const data = await getRequestsForPet(petId);
-    setRequests(data);
+    setRequests(data || []);
     setIsLoading(false);
   };
 
@@ -37,27 +37,36 @@ export default function RequestsModal({ petId, petName }) {
 
     if (result.acknowledged || result.modifiedCount > 0) {
       setRequests((prev) =>
-        prev.map((req) =>
-          req._id === requestId ? { ...req, status: newStatus } : req
-        )
+        prev.map((req) => {
+    
+          if (req._id === requestId) {
+            return { ...req, status: newStatus };
+          }
+
+          if (newStatus === "Approved" && req.status === "Pending") {
+            return { ...req, status: "Rejected" };
+          }
+          return req;
+        })
       );
     }
     setIsUpdating(false);
   };
 
- 
   const handleDelete = async (requestId) => {
     setIsUpdating(true);
     const result = await deleteAdoptionRequest(requestId);
 
     if (result.acknowledged && result.deletedCount > 0) {
-     
       setRequests((prev) => prev.filter((req) => req._id !== requestId));
     }
     setIsUpdating(false);
   };
 
   const pendingCount = requests.filter((r) => r.status === "Pending").length;
+
+
+  const isAnyRequestApproved = requests.some((r) => r.status === "Approved");
 
   return (
     <Modal onOpenChange={(isOpen) => isOpen && fetchRequests()}>
@@ -103,7 +112,6 @@ export default function RequestsModal({ petId, petName }) {
                     key={req._id}
                     className="bg-[#161C24] border border-white/5 p-4 rounded-xl space-y-4 relative group"
                   >
-                 
                     <button
                       onClick={() => handleDelete(req._id)}
                       disabled={isUpdating}
@@ -113,7 +121,6 @@ export default function RequestsModal({ petId, petName }) {
                       <Trash2 size={16} />
                     </button>
 
-                   
                     <div className="flex justify-between items-start pr-8">
                       <div>
                         <h4 className="text-white font-bold text-base">
@@ -124,7 +131,6 @@ export default function RequestsModal({ petId, petName }) {
                         </p>
                       </div>
 
-                 
                       <div
                         className={`flex items-center gap-1.5 text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wider ${
                           req.status === "Approved"
@@ -143,19 +149,18 @@ export default function RequestsModal({ petId, petName }) {
                       </div>
                     </div>
 
-                 
                     <div className="flex justify-between text-xs text-white/50 font-medium">
                       <span>Pickup: {req.pickupDate || "N/A"}</span>
                       <span>
                         Requested:{" "}
                         {new Date(
-                          req.requestDate || Date.now()
+                          req.createdAt || req.requestDate || Date.now()
                         ).toLocaleDateString()}
                       </span>
                     </div>
 
                  
-                    {req.status === "Pending" && (
+                    {req.status === "Pending" && !isAnyRequestApproved && (
                       <div className="flex gap-3 pt-2">
                         <Button
                           className="flex-1 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500 hover:text-white font-bold rounded-xl h-9"

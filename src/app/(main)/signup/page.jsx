@@ -12,7 +12,7 @@ import {
   X,
 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import {
   Card,
   Form,
@@ -28,7 +28,7 @@ export default function SignupForm() {
   const [passwordValue, setPasswordValue] = useState("");
 
   const checks = {
-    length: passwordValue.length >= 6,
+    length: (passwordValue.length) >= 8,
     uppercase: /[A-Z]/.test(passwordValue),
     lowercase: /[a-z]/.test(passwordValue),
   };
@@ -62,10 +62,10 @@ export default function SignupForm() {
     }
 
     const { data, error } = await authClient.signUp.email({
-      email: user.email,
-      password: user.password,
-      name: user.name,
-      image: user.image,
+      email: user?.email,
+      password: user?.password,
+      name: user?.name,
+      image: user?.image,
     });
 
     if (data) {
@@ -118,13 +118,12 @@ export default function SignupForm() {
               Create Account
             </h1>
             <p className="text-sm text-[#1E1611]/80 dark:text-[#F7F4EF]/70 font-semibold tracking-tight transition-colors duration-300">
-              Join Petora to begin searching your local network companions
+              Join PeTora to connect with loving companions and local pet
+              parents in your area.
             </p>
           </div>
 
           <Form className="flex flex-col gap-5 w-full" onSubmit={onSubmit}>
-            <Toaster position="top-center" />
-
             <TextField
               isRequired
               name="name"
@@ -140,7 +139,7 @@ export default function SignupForm() {
                   className="text-[#1E1611]/50 dark:text-[#F7F4EF]/50 absolute left-4 group-focus-within:text-[#C47C5D] transition-colors duration-300"
                 />
                 <Input
-                  placeholder="Alex Morgan"
+                  placeholder="Your Name"
                   className="rounded-full bg-[#1E1611]/5 dark:bg-[#F7F4EF]/5 placeholder-[#1E1611]/40 dark:placeholder-[#F7F4EF]/30 border border-[#1E1611]/15 dark:border-white/10 text-[#1E1611] dark:text-[#F7F4EF] h-12 w-full pl-12 pr-4 text-sm font-semibold outline-none focus:border-[#C47C5D] dark:focus:border-[#C47C5D] focus:bg-white dark:focus:bg-[#1E1611] focus:ring-4 focus:ring-[#C47C5D]/10 transition-all duration-300 shadow-xs"
                 />
               </div>
@@ -162,7 +161,7 @@ export default function SignupForm() {
                   className="text-[#1E1611]/50 dark:text-[#F7F4EF]/50 absolute left-4 group-focus-within:text-[#C47C5D] transition-colors duration-300"
                 />
                 <Input
-                  placeholder="name@example.com"
+                  placeholder="Your Email"
                   className="rounded-full bg-[#1E1611]/5 dark:bg-[#F7F4EF]/5 placeholder-[#1E1611]/40 dark:placeholder-[#F7F4EF]/30 border border-[#1E1611]/15 dark:border-white/10 text-[#1E1611] dark:text-[#F7F4EF] h-12 w-full pl-12 pr-4 text-sm font-semibold outline-none focus:border-[#C47C5D] dark:focus:border-[#C47C5D] focus:bg-white dark:focus:bg-[#1E1611] focus:ring-4 focus:ring-[#C47C5D]/10 transition-all duration-300 shadow-xs"
                 />
               </div>
@@ -184,7 +183,7 @@ export default function SignupForm() {
                   className="text-[#1E1611]/50 dark:text-[#F7F4EF]/50 absolute left-4 group-focus-within:text-[#C47C5D] transition-colors duration-300"
                 />
                 <Input
-                  placeholder="https://example.com/avatar.jpg"
+                  placeholder="Your Image Url"
                   className="rounded-full bg-[#1E1611]/5 dark:bg-[#F7F4EF]/5 placeholder-[#1E1611]/40 dark:placeholder-[#F7F4EF]/30 border border-[#1E1611]/15 dark:border-white/10 text-[#1E1611] dark:text-[#F7F4EF] h-12 w-full pl-12 pr-4 text-sm font-semibold outline-none focus:border-[#C47C5D] dark:focus:border-[#C47C5D] focus:bg-white dark:focus:bg-[#1E1611] focus:ring-4 focus:ring-[#C47C5D]/10 transition-all duration-300 shadow-xs"
                 />
               </div>
@@ -214,7 +213,6 @@ export default function SignupForm() {
                 />
               </div>
 
-              {/* Password Dynamic Requirements Indicator Box */}
               <div className="mt-2 bg-[#1E1611]/5 dark:bg-[#F7F4EF]/5 border border-[#1E1611]/10 dark:border-white/5 rounded-2xl p-3 space-y-1.5 text-xs font-black transition-colors">
                 <div className="flex items-center gap-2">
                   {checks.length ? (
@@ -235,7 +233,7 @@ export default function SignupForm() {
                         : "text-[#1E1611]/70 dark:text-[#F7F4EF]/70"
                     }
                   >
-                    At least 6 characters
+                    At least 8 characters
                   </span>
                 </div>
                 <div className="flex items-center gap-2">

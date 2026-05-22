@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Card, Input, Button, Label, ListBox, Select } from "@heroui/react";
 import { getAllPets } from "@/lib/actions";
+import { Spinner } from "@heroui/react";
 
 const SPECIES_OPTIONS = [
   { key: "all", label: "All Species" },
@@ -74,7 +75,6 @@ export default function AllPetsPage() {
   return (
     <div className="min-h-screen w-full bg-[#F7F4EF] dark:bg-[#1E1611] text-[#1E1611] dark:text-[#F7F4EF] pt-28 pb-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
       <div className="max-w-7xl mx-auto space-y-10">
-       
         <div className="space-y-2">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C47C5D]/10 dark:bg-[#C47C5D]/20 border border-[#C47C5D]/20">
             <span className="w-1.5 h-1.5 rounded-full bg-[#C47C5D] animate-pulse"></span>
@@ -92,16 +92,13 @@ export default function AllPetsPage() {
           </p>
         </div>
 
-      
         <Card className="w-full p-6 bg-white dark:bg-[#1E1611]/40 backdrop-blur-md border border-[#1E1611]/10 dark:border-white/5 rounded-[2rem] shadow-sm overflow-visible">
           <div className="flex items-center gap-2 mb-4 text-[#1E1611]/80 dark:text-[#F7F4EF]/80 font-black text-xs uppercase tracking-wider">
             <SlidersHorizontal size={14} className="text-[#C47C5D]" />
             <span>Filter & Search</span>
           </div>
 
-        
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
-           
             <div className="flex flex-col gap-1.5">
               <label className="text-[11px] font-black uppercase tracking-wider text-[#1E1611]/60 dark:text-[#F7F4EF]/60 pl-1">
                 Search by name
@@ -121,7 +118,6 @@ export default function AllPetsPage() {
               </div>
             </div>
 
-          
             <div className="flex flex-col">
               <Select
                 className="w-full"
@@ -160,28 +156,53 @@ export default function AllPetsPage() {
           </div>
         </Card>
 
-    
         {isLoading ? (
-          <div className="text-center py-24 text-xs font-black uppercase tracking-widest text-[#1E1611]/40 dark:text-[#F7F4EF]/40 animate-pulse">
-            Loading pet profiles...
+          <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[#F7F4EF] dark:bg-[#1E1611] transition-colors duration-300">
+            <div className="flex flex-col items-center gap-6 p-8 rounded-[2.5rem] bg-white/40 dark:bg-[#1E1611]/40 backdrop-blur-md border border-[#1E1611]/5 dark:border-white/5 shadow-sm">
+              <Spinner
+                size="lg"
+                className={{
+                  wrapper: "w-14 h-14",
+                  circle1: "border-b-[#C47C5D]",
+                  circle2: "border-b-[#C47C5D]",
+                }}
+              />
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#C47C5D] animate-pulse">
+                  Fetching Paws
+                </span>
+                <span className="flex gap-0.5">
+                  <span
+                    className="w-1 h-1 rounded-full bg-[#C47C5D] animate-bounce"
+                    style={{ animationDelay: "0ms" }}
+                  ></span>
+                  <span
+                    className="w-1 h-1 rounded-full bg-[#C47C5D] animate-bounce"
+                    style={{ animationDelay: "150ms" }}
+                  ></span>
+                  <span
+                    className="w-1 h-1 rounded-full bg-[#C47C5D] animate-bounce"
+                    style={{ animationDelay: "300ms" }}
+                  ></span>
+                </span>
+              </div>
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2">
             {filteredPets.map((pet) => {
-              console.log(pet)
+              console.log(pet);
               const isAvailable = pet.status?.toLowerCase() === "available";
-             
-              const detailsUrl = `/listings/${pet._id}`;
 
               return (
                 <Card
-                  key={pet._id || pet.id}
+                  key={pet._id}
                   className="group overflow-hidden flex flex-col justify-between border border-[#1E1611]/10 dark:border-white/5 bg-white dark:bg-[#1E1611]/60 shadow-md rounded-[2rem] transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
                 >
                   <div className="relative aspect-video w-full bg-[#1E1611]/5 dark:bg-[#F7F4EF]/5 flex items-center justify-center overflow-hidden">
-                    {pet.image ? (
+                    {pet.imageUrl ? (
                       <img
-                        src={pet.image}
+                        src={pet.imageUrl}
                         alt={pet.name}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
@@ -195,17 +216,17 @@ export default function AllPetsPage() {
                     )}
 
                     <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-white/90 dark:bg-[#1E1611]/90 backdrop-blur-xs text-[#C47C5D] border border-[#1E1611]/5">
-                      📁 {pet.species}
+                      {pet.species}
                     </div>
 
                     <div
                       className={`absolute top-4 right-4 z-10 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider text-white ${
                         isAvailable
                           ? "bg-emerald-600 dark:bg-emerald-500"
-                          : "bg-neutral-500/80"
+                          : "bg-red-500/80"
                       }`}
                     >
-                      {pet.status || "Available"}
+                      {pet.status}
                     </div>
                   </div>
 
@@ -215,7 +236,7 @@ export default function AllPetsPage() {
                         {pet.name}
                       </h3>
                       <p className="text-xs font-semibold text-[#1E1611]/60 dark:text-[#F7F4EF]/60 line-clamp-1">
-                        {pet.breed} • {pet.age} • {pet.gender}
+                        {pet.breed} • {pet.age} years old • {pet.gender}
                       </p>
                     </div>
 
@@ -225,12 +246,9 @@ export default function AllPetsPage() {
                         <span className="line-clamp-1">{pet.location}</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm font-black text-[#1E1611] dark:text-[#F7F4EF]">
-                        <DollarSign
-                          size={15}
-                          className="text-[#C47C5D] shrink-0"
-                        />
                         <span>
-                          ${Number(pet.fee).toLocaleString()} adoption fee
+                          {Number(pet.adoptionFee).toLocaleString()} tk adoption
+                          fee
                         </span>
                       </div>
                     </div>
@@ -247,9 +265,7 @@ export default function AllPetsPage() {
 
                     <Link
                       href={
-                        isAvailable
-                          ? `/listings/${pet._id}?adopt=true`
-                          : "#"
+                        isAvailable ? `/listings/${pet._id}?adopt=true` : "#"
                       }
                       className={`rounded-full text-[11px] font-black uppercase tracking-wider h-11 flex items-center justify-center gap-1.5 transition-all w-full ${
                         isAvailable
@@ -270,7 +286,6 @@ export default function AllPetsPage() {
           </div>
         )}
 
-   
         {!isLoading && filteredPets.length === 0 && (
           <div className="text-center py-20 bg-white/40 dark:bg-[#1E1611]/20 rounded-[2.5rem] border border-dashed border-[#1E1611]/10 dark:border-white/5">
             <span className="text-4xl block mb-3">🔍</span>

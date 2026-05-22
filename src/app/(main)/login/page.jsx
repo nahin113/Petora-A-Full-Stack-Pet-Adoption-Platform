@@ -83,7 +83,8 @@ export default function LoginForm() {
               Welcome Back
             </h1>
             <p className="text-sm text-[#1E1611]/70 dark:text-[#F7F4EF]/70 font-semibold tracking-tight transition-colors duration-300">
-              Continue your companion search directory journey
+              Pick up right where you left off on your journey to find a furry
+              friend.
             </p>
           </div>
 
@@ -109,7 +110,7 @@ export default function LoginForm() {
                   className="text-[#1E1611]/50 dark:text-[#F7F4EF]/50 absolute left-4 group-focus-within:text-[#C47C5D] transition-colors duration-300"
                 />
                 <Input
-                  placeholder="name@example.com"
+                  placeholder="Email"
                   className="rounded-full bg-[#1E1611]/5 dark:bg-[#F7F4EF]/5 placeholder-[#1E1611]/40 dark:placeholder-[#F7F4EF]/30 border border-[#1E1611]/15 dark:border-white/10 text-[#1E1611] dark:text-[#F7F4EF] h-12 w-full pl-12 pr-4 text-sm font-semibold outline-none focus:border-[#C47C5D] dark:focus:border-[#C47C5D] focus:bg-white dark:focus:bg-[#1E1611] focus:ring-4 focus:ring-[#C47C5D]/10 transition-all duration-300 shadow-xs"
                 />
               </div>

@@ -342,31 +342,31 @@ export default function Footer() {
 
     
           <div className="flex items-center gap-1.5 transition-opacity">
-            <div className="bg-[#FDFBF7] dark:bg-[#2A211C] p-1 px-2 rounded-lg border border-[#1E1611]/15 dark:border-white/5 flex items-center justify-center shadow-xs">
+            <div className=" p-1 px-2 rounded-lg flex items-center justify-center">
               <Image
                 src="/assets/bkash.png"
                 alt="bKash Portal"
                 width={44}
                 height={20}
-                className="object-contain h-5 w-auto"
+                className="object-contain h-10 w-auto"
               />
             </div>
-            <div className="bg-[#FDFBF7] dark:bg-[#2A211C] p-1 px-2 rounded-lg border border-[#1E1611]/15 dark:border-white/5 flex items-center justify-center shadow-xs">
+            <div className="p-1 px-2 rounded-lg  flex items-center justify-center">
               <Image
                 src="/assets/nagad.png"
                 alt="Nagad Portal"
                 width={44}
                 height={20}
-                className="object-contain h-5 w-auto"
+                className="object-contain h-10 w-auto"
               />
             </div>
-            <div className="bg-[#FDFBF7] dark:bg-[#2A211C] p-1 px-2 rounded-lg border border-[#1E1611]/15 dark:border-white/5 flex items-center justify-center shadow-xs">
+            <div className="p-1 px-2 rounded-lg flex items-center justify-center">
               <Image
                 src="/assets/rocket.png"
                 alt="Rocket Portal"
                 width={44}
                 height={20}
-                className="object-contain h-5 w-auto"
+                className="object-contain h-10 w-auto"
               />
             </div>
           </div>

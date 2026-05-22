@@ -82,7 +82,7 @@ const handlePetSubmit = async (e) => {
                 <Label className="text-[11px] font-black uppercase tracking-wider text-[#1E1611]/60 dark:text-[#F7F4EF]/60 pl-1 mb-1.5 block">
                   Pet Name
                 </Label>
-                <Input placeholder="e.g., Blizzard" className="rounded-2xl" />
+                <Input placeholder="Tora" className="rounded-2xl" />
                 <FieldError />
               </TextField>
 
@@ -163,7 +163,7 @@ const handlePetSubmit = async (e) => {
                   Breed
                 </Label>
                 <Input
-                  placeholder="e.g., Siberian Husky"
+                  placeholder="Siberian Husky"
                   className="rounded-2xl"
                 />
                 <FieldError />
@@ -175,7 +175,7 @@ const handlePetSubmit = async (e) => {
                   Age
                 </Label>
                 <Input
-                  placeholder="e.g., 2 years old"
+                  placeholder="2 years old"
                   className="rounded-2xl"
                 />
                 <FieldError />
@@ -243,7 +243,7 @@ const handlePetSubmit = async (e) => {
                   Health Status
                 </Label>
                 <Input
-                  placeholder="e.g., Excellent, energetic"
+                  placeholder="Excellent, energetic"
                   className="rounded-2xl"
                 />
                 <FieldError />
@@ -298,7 +298,7 @@ const handlePetSubmit = async (e) => {
                   Location
                 </Label>
                 <Input
-                  placeholder="e.g., Dhaka, Bangladesh"
+                  placeholder="Dhaka, Bangladesh"
                   className="rounded-2xl"
                 />
                 <FieldError />

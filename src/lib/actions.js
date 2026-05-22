@@ -47,12 +47,15 @@ export const getMyPetData = async (email) => {
   }
 };
 
-export const deletePetListing = async (id) => {
+export const deletePetListing = async (id,token) => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}petsData/${id}`,
       {
         method: "DELETE",
+        headers : {
+          authorization : `Bearer ${token}`
+        }
       }
     );
     return await res.json();
@@ -62,11 +65,14 @@ export const deletePetListing = async (id) => {
   }
 };
 
-export const getSinglePetData = async (id) => {
+export const getSinglePetData = async (id,token) => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}petsData/${id}`,
       {
+        headers : {
+          authorization : `Bearer ${token}`
+        }, 
         cache: "no-store",
       }
     );
@@ -78,14 +84,16 @@ export const getSinglePetData = async (id) => {
   }
 };
 
-export const submitAdoptionRequest = async (requestData) => {
+export const submitAdoptionRequest = async (requestData,token) => {
   try {
+    console.log("Here" , token)
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}adoptionRequests`,
       {
         method: "POST",
         headers: {
           "content-type": "application/json",
+          authorization : `Bearer ${token}`
         },
         body: JSON.stringify(requestData),
       }
@@ -190,7 +198,7 @@ export const deleteAdoptionRequest = async (requestId) => {
   }
 };
 
-export const updatePetData = async (id, updatedData) => {
+export const updatePetData = async (id, updatedData,token) => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}petsData/${id}`,
@@ -198,6 +206,7 @@ export const updatePetData = async (id, updatedData) => {
         method: "PATCH", 
         headers: {
           "content-type": "application/json",
+          authorization : `Bearer ${token}`
         },
         body: JSON.stringify(updatedData),
       }

@@ -1,9 +1,9 @@
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getSinglePetData } from "@/lib/actions";
 import AdoptionForm from "@/components/AdoptionForm";
+import { Check, ArrowRight } from "lucide-react";
 import {
   ChevronLeft,
   MapPin,
@@ -14,28 +14,27 @@ import {
   UserCheck,
 } from "lucide-react";
 import { Button, Card } from "@heroui/react";
-
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const PetDetailsPage = async ({ params, searchParams }) => {
-
   const { id } = await params;
+  const {token} = await auth.api.getToken({
+    headers : await headers()
+  })
   const resolvedSearchParams = await searchParams;
 
+  console.log(token)
 
   const autoFocusForm = resolvedSearchParams?.adopt === "true";
 
-  const pet = await getSinglePetData(id);
-
-  if (!pet) {
-    notFound();
-  }
+  const pet = await getSinglePetData(id,token);
 
   const isAdopted = pet.status === "Adopted";
 
   return (
     <div className="min-h-screen w-full bg-[#F7F4EF] dark:bg-[#1E1611] text-[#1E1611] dark:text-[#F7F4EF] pt-28 pb-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
-      <div className="max-w-6xl mx-auto space-y-6">
-      
+      <div className="container mx-auto space-y-6">
         <Link
           href="/all-pets"
           className="inline-flex items-center gap-1 text-xs font-bold text-[#C47C5D] hover:underline"
@@ -44,7 +43,6 @@ const PetDetailsPage = async ({ params, searchParams }) => {
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-     
           <div className="lg:col-span-2 space-y-6">
             <div className="relative w-full aspect-[16/10] bg-white dark:bg-[#1E1611]/40 rounded-[2rem] border border-[#1E1611]/10 dark:border-white/5 overflow-hidden shadow-sm">
               <Image
@@ -131,6 +129,34 @@ const PetDetailsPage = async ({ params, searchParams }) => {
 
               <Card className="p-4 bg-white dark:bg-[#1E1611]/40 border border-[#1E1611]/10 dark:border-white/5 rounded-2xl flex flex-row items-center gap-3 shadow-none">
                 <div className="p-2.5 bg-[#C47C5D]/10 text-[#C47C5D] rounded-xl">
+                  <Activity size={16} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-[#1E1611]/40 dark:text-[#F7F4EF]/40 uppercase tracking-wider">
+                    Age
+                  </p>
+                  <p className="text-sm font-black truncate max-w-[180px]">
+                    {pet.age}
+                  </p>
+                </div>
+              </Card>
+
+              <Card className="p-4 bg-white dark:bg-[#1E1611]/40 border border-[#1E1611]/10 dark:border-white/5 rounded-2xl flex flex-row items-center gap-3 shadow-none">
+                <div className="p-2.5 bg-[#C47C5D]/10 text-[#C47C5D] rounded-xl">
+                  <Activity size={16} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-[#1E1611]/40 dark:text-[#F7F4EF]/40 uppercase tracking-wider">
+                    Gender
+                  </p>
+                  <p className="text-sm font-black truncate max-w-[180px]">
+                    {pet.gender}
+                  </p>
+                </div>
+              </Card>
+
+              <Card className="p-4 bg-white dark:bg-[#1E1611]/40 border border-[#1E1611]/10 dark:border-white/5 rounded-2xl flex flex-row items-center gap-3 shadow-none">
+                <div className="p-2.5 bg-[#C47C5D]/10 text-[#C47C5D] rounded-xl">
                   <MapPin size={16} />
                 </div>
                 <div>
@@ -197,16 +223,33 @@ const PetDetailsPage = async ({ params, searchParams }) => {
             </div>
           </div>
 
-       
-          <div className="lg:col-span-1">
-            <AdoptionForm
-              petId={id}
-              petName={pet.name}
-              ownerEmail={pet.ownerEmail}
-     
-              autoFocus={autoFocusForm}
-            />
-          </div>
+          {pet.status == "Available" ? (
+            <div className="lg:col-span-1">
+              <AdoptionForm
+                petId={id}
+                petName={pet?.name}
+                ownerEmail={pet?.ownerEmail}
+                autoFocus={autoFocusForm}
+              />
+            </div>
+          ) : (
+            <Card className="w-full p-8 md:p-10 bg-white/70 dark:bg-[#1E1611]/80 backdrop-blur-md border border-[#1E1611]/10 dark:border-white/5 shadow-xl rounded-[2.5rem] flex flex-col items-center text-center space-y-6 transition-all duration-300">
+              <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-[#C47C5D]/10 dark:bg-[#C47C5D]/20 border border-[#C47C5D]/20 text-[#C47C5D] transition-transform duration-300 hover:scale-105">
+                <Check size={28} className="stroke-3" />
+                <span className="absolute inset-0 rounded-full ping-slow bg-[#C47C5D]/5 pointer-events-none"></span>
+              </div>
+
+              <div className="space-y-2.5 max-w-sm">
+                <h2 className="text-2xl md:text-3xl font-black text-[#1E1611] dark:text-[#F7F4EF] tracking-tight leading-none transition-colors duration-300">
+                  {pet.name} has been adopted!
+                </h2>
+                <p className="text-sm font-semibold text-[#1E1611]/60 dark:text-[#F7F4EF]/70 leading-relaxed transition-colors duration-300">
+                  This lucky companion has found their forever home. Browse our
+                  active repository to locate other available matches.
+                </p>
+              </div>
+            </Card>
+          )}
         </div>
       </div>
     </div>

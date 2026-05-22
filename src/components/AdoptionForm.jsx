@@ -25,7 +25,7 @@ export default function AdoptionForm({
   const formRef = useRef(null);
   useEffect(() => {
     if (autoFocus && formRef.current) {
-      // Small timeout ensures the DOM has fully painted before scrolling
+  
       setTimeout(() => {
         formRef.current.scrollIntoView({
           behavior: "smooth",
@@ -36,8 +36,28 @@ export default function AdoptionForm({
   }, [autoFocus]);
   const { data: session } = authClient.useSession();
   const user = session?.user;
+  
+
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+ const [token, setToken] = useState(null);
+
+ useEffect(() => {
+   const fetchToken = async () => {
+     try {
+       const { data: tokenData } = await authClient.token();
+       if (tokenData) {
+         const { token: targetToken } = tokenData;
+         setToken(targetToken);
+       }
+     } catch (err) {
+       console.error("Error retrieving authentication token:", err);
+     }
+   };
+   fetchToken();
+ }, []);
+
+ console.log(token);
 
   const isAuthenticated = true;
   const currentUser = isAuthenticated
@@ -70,7 +90,8 @@ export default function AdoptionForm({
     };
 
     try {
-      const res = await submitAdoptionRequest(requestPayload);
+    
+      const res = await submitAdoptionRequest(requestPayload,token);
 
       if (res && res.acknowledged) {
         toast.success(`Application for ${petName} submitted successfully!`);

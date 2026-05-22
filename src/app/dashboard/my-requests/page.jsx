@@ -83,14 +83,14 @@ export default function MyAdoptionRequestsPage() {
 
 
   return (
-    <div className="space-y-10 max-w-7xl mx-auto px-4 py-6">
+    <div className="space-y-10 container mx-auto py-6 min-h-screen w-full bg-[#F7F4EF] dark:bg-[#1E1611] text-[#1E1611] dark:text-[#F7F4EF] pt-28 pb-20 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
       <div className="space-y-1">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-[#C47C5D]/10 border border-[#C47C5D]/20 text-[#C47C5D]">
-          📂 My Dashboard
+         My Dashboard
         </div>
-        <h1 className="text-3xl font-black tracking-tight text-[#F7F4EF] flex items-center gap-2">
+        <h1 className="text-3xl font-black tracking-tight text-[#F7F4EF]">
           My
-          <span className="text-transparent bg-clip-text bg-linear-to-r from-[#C47C5D] to-[#E3A384]">
+          <span className="ml-3 text-transparent bg-clip-text bg-linear-to-r from-[#C47C5D] to-[#E3A384]">
             Adoption Requests
           </span>
         </h1>
@@ -101,14 +101,6 @@ export default function MyAdoptionRequestsPage() {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-[#1E1611]/60 border border-white/5 rounded-3xl p-6 text-center space-y-1 backdrop-blur-md">
-          <span className="text-3xl font-black text-[#F7F4EF] block">
-            {totalCount}
-          </span>
-          <span className="text-xs text-[#F7F4EF]/40 font-bold uppercase tracking-wider block">
-            Total Requests
-          </span>
-        </div>
 
         <div className="bg-[#1E1611]/60 border border-white/5 rounded-3xl p-6 text-center space-y-1 backdrop-blur-md">
           <span className="text-3xl font-black text-amber-400 block">
@@ -210,16 +202,6 @@ export default function MyAdoptionRequestsPage() {
                             View
                           </Button>
                         </Link>
-                      </td>
-                      <td>
-                        <Button
-                          size="sm"
-                          variant="flat"
-                          className="rounded-xl font-bold text-xs gap-1.5 bg-white/5 border border-white/5 text-[#F7F4EF]/80 hover:bg-[#C47C5D] hover:text-white transition-all px-4"
-                        >
-                          <Eye size={13} />
-                          Delete
-                        </Button>
                       </td>
                     </tr>
                   );

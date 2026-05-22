@@ -29,11 +29,11 @@ export default function RootLayout({ children }) {
     >
       <body className="bg-[#F7F4EF] dark:bg-[#1E1611] text-[#1E1611] dark:text-[#F7F4EF] min-h-full transition-colors duration-300">
         <NextThemeProvider>
-          <SmoothScrollProvider>
+          {/* <SmoothScrollProvider> */}
             <Toaster position="top-center" />
             <Navbar />
             {children}
-          </SmoothScrollProvider>
+          {/* </SmoothScrollProvider> */}
         </NextThemeProvider>
       </body>
     </html>

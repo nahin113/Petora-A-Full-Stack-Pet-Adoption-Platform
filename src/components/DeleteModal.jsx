@@ -1,20 +1,39 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Trash2, AlertCircle } from "lucide-react";
 import { AlertDialog, Button } from "@heroui/react";
 import { deletePetListing } from "@/lib/actions";
 import { toast } from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
 
 export default function DeleteModal({ petId, petName }) {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [token, setToken] = useState(null);
+
+   useEffect(() => {
+     const fetchToken = async () => {
+       try {
+         const { data: tokenData } = await authClient.token();
+         if (tokenData) {
+           const { token: targetToken } = tokenData;
+           setToken(targetToken);
+         }
+       } catch (err) {
+         console.error("Error retrieving authentication token:", err);
+       }
+     };
+     fetchToken();
+   }, []);
+
+   console.log(token);
 
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
-      const res = await deletePetListing(petId);
+      const res = await deletePetListing(petId,token);
       if (res && res.acknowledged) {
         toast.success(`${petName} removed successfully!`);
         router.refresh();

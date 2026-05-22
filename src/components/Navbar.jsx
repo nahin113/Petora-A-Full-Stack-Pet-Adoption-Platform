@@ -27,7 +27,7 @@ const Navbar = () => {
               width={60}
               alt="petora_logo"
             />
-            <h4 className="text-white font-bold text-4xl tracking-tight">
+            <h4 className="text-white font-bold text-4xl tracking-tight hidden md:inline">
               PeTora
             </h4>
           </div>
