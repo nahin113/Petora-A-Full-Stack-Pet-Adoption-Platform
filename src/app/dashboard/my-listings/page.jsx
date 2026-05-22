@@ -10,9 +10,12 @@ import {
 import { Card, Button } from "@heroui/react";
 import { getMyPetData } from "@/lib/actions";
 import Image from "next/image";
-import DeleteModal from "@/components/DeleteModal";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import EditPetModal from "@/components/EditPetModal";
+import DeleteModal from "@/components/DeleteModal";
+import RequestsModal from "@/components/RequestModal";
+
 
 
 
@@ -108,6 +111,7 @@ const MyListingsPage = async () => {
         {listings.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {listings.map((pet) => {
+              console.log(pet)
               const isAdopted = pet.status === "Adopted";
               const petId = pet._id || pet.id;
 
@@ -116,7 +120,6 @@ const MyListingsPage = async () => {
                   key={petId}
                   className="group w-full bg-white dark:bg-[#1E1611]/40 backdrop-blur-md border border-[#1E1611]/10 dark:border-white/5 rounded-[2rem] shadow-sm transition-all duration-300 hover:shadow-md overflow-hidden flex flex-col"
                 >
-         
                   <div className="relative w-full aspect-[4/3] bg-[#1E1611]/5 dark:bg-[#F7F4EF]/5 overflow-hidden border-b border-[#1E1611]/5 dark:border-white/5">
                     <Image
                       src={
@@ -129,7 +132,6 @@ const MyListingsPage = async () => {
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
 
-              
                     <div
                       className={`absolute top-4 left-4 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md text-white shadow-sm ${
                         isAdopted ? "bg-red-500" : "bg-emerald-500"
@@ -138,7 +140,6 @@ const MyListingsPage = async () => {
                       {pet.status || "Available"}
                     </div>
 
-               
                     <div className="absolute top-4 right-4 bg-white/90 dark:bg-[#1E1611]/90 backdrop-blur-md py-1.5 px-3 rounded-full border border-[#1E1611]/10 dark:border-white/10 flex items-center gap-1 shadow-sm">
                       <Tag size={12} className="text-[#C47C5D]" />
                       <span className="text-[11px] font-black tracking-tight text-[#1E1611] dark:text-[#F7F4EF]">
@@ -149,7 +150,6 @@ const MyListingsPage = async () => {
                     </div>
                   </div>
 
-              
                   <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
@@ -171,47 +171,23 @@ const MyListingsPage = async () => {
                       </div>
                     </div>
 
-           
                     <div className="space-y-2 pt-2 border-t border-[#1E1611]/5 dark:border-white/5">
                       <div className="grid grid-cols-2 gap-2">
                         <Link href={`/listings/${petId}`} className="w-full">
                           <Button
                             size="sm"
                             variant="flat"
-                            className="w-full rounded-xl font-bold text-xs gap-1"
+                            className="hover:bg-white/10 text-white h-9 px-4 rounded-xl flex items-center gap-2 text-xs font-bold w-full"
                           >
                             <Eye size={13} /> View
                           </Button>
                         </Link>
 
-                        <Link
-                          href={`/dashboard/edit-pet/${petId}`}
-                          className="w-full"
-                        >
-                          <Button
-                            size="sm"
-                            variant="flat"
-                            className="w-full rounded-xl font-bold text-xs gap-1"
-                          >
-                            <Edit3 size={13} /> Edit
-                          </Button>
-                        </Link>
+                        <EditPetModal pet={pet}></EditPetModal>
                       </div>
 
                       <div className="grid grid-cols-2 gap-2">
-                        <Link
-                          href={`/dashboard/requests/${petId}`}
-                          className="w-full"
-                        >
-                          <Button
-                            size="sm"
-                            variant="flat"
-                            color="primary"
-                            className="w-full rounded-xl font-bold text-xs gap-1"
-                          >
-                            <MessageSquare size={13} /> Requests
-                          </Button>
-                        </Link>
+                        <RequestsModal petId={pet._id} petName={pet.name} />
 
                         <DeleteModal petId={petId} petName={pet.name} />
                       </div>

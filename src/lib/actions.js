@@ -139,3 +139,72 @@ export const getAllPets = async (
     return [];
   }
 };
+
+
+export const getRequestsForPet = async (petId) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}adoptionRequests/pet/${petId}`,
+      { cache: "no-store" }
+    );
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching requests for pet:", error);
+    return [];
+  }
+};
+
+export const updateRequestStatus = async (requestId, status) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}adoptionRequests/${requestId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ status }),
+      }
+    );
+    return await res.json();
+  } catch (error) {
+    console.error("Error updating request status:", error);
+    return { acknowledged: false };
+  }
+};
+
+
+export const deleteAdoptionRequest = async (requestId) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}adoptionRequests/${requestId}`,
+      {
+        method: "DELETE",
+      }
+    );
+    return await res.json();
+  } catch (error) {
+    console.error("Error deleting adoption request:", error);
+    return { acknowledged: false };
+  }
+};
+
+export const updatePetData = async (id, updatedData) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}petsData/${id}`,
+      {
+        method: "PATCH", 
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      }
+    );
+    return await res.json();
+  } catch (error) {
+    console.error("Error updating pet data:", error);
+    return { acknowledged: false, error: error.message };
+  }
+};

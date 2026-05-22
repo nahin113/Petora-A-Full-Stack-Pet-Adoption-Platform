@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "@heroui/react";
 import { Home } from "lucide-react";
 
-const NotFoundPage = () => {
+export default function NotFound() {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[#F7F4EF] dark:bg-[#1E1611] text-[#1E1611] dark:text-[#F7F4EF] px-4 sm:px-6 lg:px-8 transition-colors duration-300">
       <div className="max-w-md w-full text-center space-y-8">
@@ -24,18 +24,13 @@ const NotFoundPage = () => {
             you back to the available pets.
           </p>
         </div>
-
-        <Button
-          as={Link}
-          href="/"
-          className="rounded-full bg-[#C47C5D] text-[#F7F4EF] hover:bg-[#A86446] h-12 px-8 text-[11px] font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md mx-auto"
-        >
-          <Home size={15} />
-          <span>Return to Homepage</span>
-        </Button>
+        <Link href="/">
+          <Button className="rounded-full bg-[#C47C5D] text-[#F7F4EF] hover:bg-[#A86446] h-12 px-8 text-[11px] font-black uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md mx-auto">
+            <Home size={15} />
+            <span>Return to Homepage</span>
+          </Button>
+        </Link>
       </div>
     </div>
   );
 };
-
-export default not - found;

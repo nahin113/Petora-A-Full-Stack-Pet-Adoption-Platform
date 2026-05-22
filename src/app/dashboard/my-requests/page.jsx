@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Eye, Clock, CheckCircle2, XCircle } from "lucide-react";
 import { Button } from "@heroui/react";
 import { getMyAdoptionRequests } from "@/lib/actions";
-import { authClient } from "@/lib/auth-client"; 
+import { authClient } from "@/lib/auth-client";
 
 const StatusBadge = ({ status }) => {
   const normalized = status?.toLowerCase();
@@ -23,6 +23,13 @@ const StatusBadge = ({ status }) => {
       </span>
     );
   }
+  if (normalized === "removed") {
+    return (
+      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-red-500/10 border border-red-500/20 text-red-400">
+        <XCircle size={12} /> Removed
+      </span>
+    );
+  }
   return (
     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/10 border border-amber-500/20 text-amber-400">
       <Clock size={12} /> Pending
@@ -31,6 +38,8 @@ const StatusBadge = ({ status }) => {
 };
 
 export default function MyAdoptionRequestsPage() {
+  const [requests, setRequests] = useState(null);
+  const [isDataLoading, setIsDataLoading] = useState(false);
 
   const { data: session, isPending: isSessionLoading } =
     authClient.useSession();
@@ -41,22 +50,25 @@ export default function MyAdoptionRequestsPage() {
     ? { name: user?.name, email: user?.email }
     : null;
 
+ useEffect(() => {
+   if (currentUser?.email && requests === null) {
+     setIsDataLoading(true);
 
-  const [requests, setRequests] = useState(null);
-  const [isDataLoading, setIsDataLoading] = useState(false);
-
-
-  if (currentUser?.email && requests === null && !isDataLoading) {
-    setIsDataLoading(true);
-    getMyAdoptionRequests(currentUser?.email).then((res) => {
-      setRequests(res || []);
-      setIsDataLoading(false);
-    });
-  }
-
+     getMyAdoptionRequests(currentUser.email)
+       .then((res) => {
+         setRequests(res || []);
+       })
+       .catch((error) => {
+         console.error("Failed to fetch requests", error);
+         setRequests([]);
+       })
+       .finally(() => {
+         setIsDataLoading(false);
+       });
+   }
+ }, [currentUser?.email, requests]);
 
   const activeRequests = requests || [];
-
 
   const totalCount = activeRequests.length;
   const pendingCount = activeRequests.filter(
@@ -69,44 +81,16 @@ export default function MyAdoptionRequestsPage() {
     (r) => r.status?.toLowerCase() === "rejected"
   ).length;
 
-//   if (isSessionLoading || (isDataLoading && requests === null)) {
-//     return (
-//       <div className="pt-60 min-h-[60vh] flex items-center justify-center text-xs font-black uppercase tracking-widest text-[#F7F4EF]/40">
-//         Loading adoption tracker registry...
-//       </div>
-//     );
-//   }
-
-
-  if (!currentUser) {
-    return (
-      <div className="min-h-[50vh] flex flex-col items-center justify-center text-center space-y-4 max-w-sm mx-auto px-4">
-        <h2 className="text-xl font-black text-[#F7F4EF]">Access Restricted</h2>
-        <p className="text-sm text-[#F7F4EF]/60 font-semibold">
-          Please log into your PeTora account to view and follow your active
-          adoption request documents.
-        </p>
-        <Button
-          as={Link}
-          href="/login"
-          className="w-full h-11 rounded-full text-xs font-black uppercase tracking-wider bg-[#C47C5D] text-white"
-        >
-          Sign In
-        </Button>
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-10 max-w-7xl mx-auto px-4 py-6">
-
       <div className="space-y-1">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-[#C47C5D]/10 border border-[#C47C5D]/20 text-[#C47C5D]">
           📂 My Dashboard
         </div>
         <h1 className="text-3xl font-black tracking-tight text-[#F7F4EF] flex items-center gap-2">
-          My{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C47C5D] to-[#E3A384]">
+          My
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-[#C47C5D] to-[#E3A384]">
             Adoption Requests
           </span>
         </h1>
@@ -115,7 +99,6 @@ export default function MyAdoptionRequestsPage() {
           here.
         </p>
       </div>
-
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-[#1E1611]/60 border border-white/5 rounded-3xl p-6 text-center space-y-1 backdrop-blur-md">
@@ -155,7 +138,6 @@ export default function MyAdoptionRequestsPage() {
         </div>
       </div>
 
-  
       <div className="bg-[#1E1611]/40 border border-white/5 rounded-[2rem] overflow-hidden backdrop-blur-md">
         {totalCount === 0 ? (
           <div className="p-16 text-center space-y-3">
@@ -203,7 +185,7 @@ export default function MyAdoptionRequestsPage() {
                   return (
                     <tr
                       key={request._id}
-                      className="hover:bg-white/[0.02] transition-colors group"
+                      className="hover:bg-white/2 transition-colors group"
                     >
                       <td className="py-4 px-6 text-sm font-black text-[#F7F4EF]">
                         {request.petName || "Companion"}
@@ -218,15 +200,25 @@ export default function MyAdoptionRequestsPage() {
                         <StatusBadge status={request.status} />
                       </td>
                       <td className="py-4 px-6 text-center">
+                        <Link href={`/listings/${request.petId}`}>
+                          <Button
+                            size="sm"
+                            variant="flat"
+                            className="rounded-xl font-bold text-xs gap-1.5 bg-white/5 border border-white/5 text-[#F7F4EF]/80 hover:bg-[#C47C5D] hover:text-white transition-all px-4"
+                          >
+                            <Eye size={13} />
+                            View
+                          </Button>
+                        </Link>
+                      </td>
+                      <td>
                         <Button
-                          as={Link}
-                          href={`/listings/${request.petId}`}
                           size="sm"
                           variant="flat"
                           className="rounded-xl font-bold text-xs gap-1.5 bg-white/5 border border-white/5 text-[#F7F4EF]/80 hover:bg-[#C47C5D] hover:text-white transition-all px-4"
                         >
                           <Eye size={13} />
-                          View
+                          Delete
                         </Button>
                       </td>
                     </tr>

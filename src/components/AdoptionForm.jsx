@@ -65,7 +65,7 @@ export default function AdoptionForm({
       petName,
       requesterName: currentUser?.name || "Guest",
       requesterEmail: currentUser?.email || "",
-      status: "pending",
+      status: "Pending",
       createdAt: new Date().toISOString(),
     };
 

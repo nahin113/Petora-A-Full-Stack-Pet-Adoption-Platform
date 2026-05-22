@@ -16,10 +16,15 @@ import {
 } from "@heroui/react";
 import { addPetData } from "@/lib/actions";
 import { toast } from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
 
 export default function AddPetPage() {
   const router = useRouter();
   const [isPending, setIsPending] = useState(false);
+
+    const { data: session, isPending: isSessionLoading } =
+      authClient.useSession();
+    const user = session?.user;
 
 const handlePetSubmit = async (e) => {
   e.preventDefault();
@@ -331,8 +336,8 @@ const handlePetSubmit = async (e) => {
                 </Label>
                 <Input
                   type="email"
-                  // readOnly
-                  // value="user@example.com"
+                  readOnly
+                  value={user?.email}
                   className="rounded-2xl cursor-not-allowed bg-[#1E1611]/10 dark:bg-[#F7F4EF]/10"
                 />
               </TextField>
