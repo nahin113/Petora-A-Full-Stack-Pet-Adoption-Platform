@@ -4,9 +4,15 @@
 
 ---
 
-## 🌐 Live URL
+## Live URL
 
-🔗 [https://petora-client.vercel.app/]
+ [Live Demo](https://petora-client.vercel.app)
+
+---
+
+## 📸 Preview
+
+![Petora Screenshot](./screenshot.png)
 
 ---
 
@@ -18,13 +24,13 @@ Petora is a full-stack Pet Adoption Platform that allows users to explore pets a
 
 ## Features
 
-- 🔐 **Secure Authentication** — Email/password Sign Up & Sign In plus Google OAuth, powered by BetterAuth with JWT and JWK-based token verification
-- 🐶 **Browse & Search Pets** — Explore all available pets with real-time search and filter by species, age, and location
-- 📋 **Adoption Request System** — Submit adoption requests on pet profiles and track their status (Pending / Approved / Rejected) from your dashboard
-- 🏠 **User Dashboard** — Manage your listed pets (Add, Edit, Delete) and monitor all submitted adoption requests in one place
-- 🌗 **Dark / Light Mode** — Full theme toggle with persistent preference across sessions
-- 🎞️ **Smooth UI & Animations** — Lenis smooth scrolling and Framer Motion animations for a polished, modern user experience
-- 📱 **Fully Responsive Design** — Optimized layout across mobile, tablet, and desktop using Tailwind CSS and HeroUI
+• **Secure Authentication** — Email/password Sign Up & Sign In plus Google OAuth, powered by BetterAuth with JWT and JWK-based token verification
+• **Browse & Search Pets** — Explore all available pets with real-time search and filter by species, age, and location
+• **Adoption Request System** — Submit adoption requests on pet profiles and track their status (Pending / Approved / Rejected) from your dashboard
+• **User Dashboard** — Manage your listed pets (Add, Edit, Delete) and monitor all submitted adoption requests in one place
+• **Dark / Light Mode** — Full theme toggle with persistent preference across sessions
+• **Smooth UI & Animations** — Lenis smooth scrolling and Framer Motion animations for a polished, modern user experience
+• **Fully Responsive Design** — Optimized layout across mobile, tablet, and desktop using Tailwind CSS and HeroUI
 
 ---
 
@@ -112,7 +118,7 @@ npm run dev
 
 ---
 
-## 🔗 API Endpoints
+## API Endpoints
 
 | Method   | Endpoint                | Description                         |
 | -------- | ----------------------- | ----------------------------------- |
@@ -129,11 +135,11 @@ npm run dev
 
 ---
 
-## 👨‍💻 Author
+## Author
 
-**Your Name**
-
-- GitHub: [@your-username](https://github.com/nahin113)
-- LinkedIn: [your-linkedin](https://www.linkedin.com/in/nahin-ahmed-bd/)
+**Nahin Ahmed**
+• GitHub: [@nahin113](https://github.com/nahin113)
+• LinkedIn: [nahin-ahmed-bd](https://www.linkedin.com/in/nahin-ahmed-bd/)
+• Portfolio: [nahinahmed.vercel.app](https://nahinahmed.vercel.app)
 
 ---
